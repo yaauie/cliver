@@ -6,7 +6,7 @@
 ## Git-Flow
 
 `Cliver` follows the [git-flow][] branching model, which means that every
-commit on `master` is a release. The default working `HEAD` is `develop`, so
+commit on `master` is a release. The default working branch is `develop`, so
 in general please keep feature pull-requests based against the current
 `develop`.
 
@@ -29,6 +29,7 @@ you can, but if you believe clarity will be sacrificed they can be bypassed
 with the `--no-verify` flag.
 
 [git-flow]: http://nvie.com/posts/a-successful-git-branching-model/
+[pre-commit]: .githooks/pre-commit/ruby-appraiser
 [ruby-appraiser]: https://github.com/simplymeasured/ruby-appraiser
 [icefox/git-hooks]: https://github.com/icefox/git-hooks
 [pull-request-hack]: http://felixge.de/2013/03/11/the-pull-request-hack.html

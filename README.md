@@ -44,7 +44,7 @@ Cliver.assert('janky', '~> 10.1.alpha',
 Alternatively, you can supply your own detector (anything that responds to
 `#to_proc`) in the options hash or as a block, so long as it returns a
 `Gem::Version`-parsable version number; if it returns nil or false when
-version requirements are given, a descriptive ArgumentError is raised.
+version requirements are given, a descriptive `ArgumentError` is raised.
 
 ```ruby
 Cliver.assert('oddball', '~> 10.1.alpha') do |oddball_path|
