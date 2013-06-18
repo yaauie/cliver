@@ -13,8 +13,8 @@ module Cliver
 
     # Creates a new instance with the args and calls #assert.
     # @see #assert
-    def self.assert!(*args)
-      new(*args).assert!
+    def self.assert!(*args, &block)
+      new(*args, &block).assert!
     end
 
     # @overload initialize(executable, *requirements, options = {})
@@ -28,36 +28,48 @@ module Cliver
     #   alphanumeric pre-release suffix
     #   @see Gem::Requirement::new
     # @param options [Hash<Symbol,Object>]
-    # @options options [#match] :version_matcher
-    # @options options [String] :version_arg
-    def initialize(executable, *args)
-      options = args.last.kind_of?(Hash) ? args.pop : {}
+    # @options options [Cliver::Detector, #to_proc] :detector
+    # @yieldparam [String] full path to executable
+    # @yieldreturn [String] Gem::Version-parsable string version
+    def initialize(executable, *args, &detector)
       raise ArgumentError, 'executable' unless executable[EXECUTABLE_PATTERN]
 
+      options = args.last.kind_of?(Hash) ? args.pop : {}
+
       @executable = executable.dup.freeze
-      @requirement = Gem::Requirement.new(args)
-      @version_arg = options.fetch(:version_arg, '--version')
-      @version_matcher = options.fetch(:version_matcher,
-                                       /version ([0-9][.0-9a-z]+)/i)
+      @requirement = Gem::Requirement.new(args) unless args.empty?
+      @detector = detector || options.fetch(:detector) { Detector.new }
     end
 
     # @raise [VersionMismatch] if installed version does not match requirement
     # @raise [DependencyNotFound] if no installed version on your path
     def assert!
       version = installed_version
-      version || raise(DependencyNotFound, "#{@executable} missing.")
-      unless @requirement.satisfied_by?(version)
+      raise(DependencyNotFound, "#{@executable} missing.") unless version
+
+      if @requirement && !@requirement.satisfied_by?(Gem::Version.new(version))
         raise VersionMismatch,
               "expected #{@executable} to be #{@requirement}, got #{version}"
       end
     end
 
     # @private
+    # @return [nil]    if no version present
+    # @return [String] Gem::Version-parsable string version
+    # @return [true]   if present and no requirements (optimization)
     def installed_version
-      command = "which #{@executable} && #{@executable} #{@version_arg}"
-      command_out, _ = Open3.capture2e(command)
-      match = @version_matcher.match(command_out)
-      match && Gem::Version.new(match[1])
+      which, _ = Open3.capture2e("which #{@executable}")
+      executable_path = which.chomp
+      return nil if executable_path.empty?
+      return true unless @requirement
+
+      @detector.to_proc.call(executable_path).tap do |version|
+        unless version
+          raise ArgumentError,
+                "found #{@executable} at '#{executable_path}' " +
+                'but could not detect its version.'
+        end
+      end
     end
   end
 end
