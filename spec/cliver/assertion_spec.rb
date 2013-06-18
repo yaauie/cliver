@@ -69,6 +69,14 @@ describe Cliver::Assertion do
         end
       end
     end
+
+    context 'none' do
+      let(:requirements) { [] }
+      let(:version) { Gem::Version.new('3.1') }
+      it 'should not raise' do
+        expect { assertion.assert! }.to_not raise_exception
+      end
+    end
   end
 
   context 'when dependency not found' do
