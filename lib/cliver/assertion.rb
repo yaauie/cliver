@@ -6,8 +6,9 @@ module Cliver
   # The core of Cliver, Assertion is responsible for detecting the
   # installed version of a binary and determining if it meets the requirements
   class Assertion
-    DependencyVersionMismatch = Class.new(ArgumentError)
-    DependencyNotFound = Class.new(ArgumentError)
+    DependencyNotMet = Class.new(ArgumentError)
+    DependencyVersionMismatch = Class.new(DependencyNotMet)
+    DependencyNotFound = Class.new(DependencyNotMet)
 
     EXECUTABLE_PATTERN = /\A[a-z][a-zA-Z0-9\-_]*\z/.freeze
 

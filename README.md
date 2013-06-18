@@ -20,7 +20,7 @@ Cliver.assert('racc', '>= 1.0', '< 1.4.9') # many version requirements
 If the executable can't be found on your path at all, a 
 `Cliver::Assertion::DependencyNotFound` exception is raised; if the version
 reached does not meet the requirements, a `Cliver::Assertion::DependencyVersionMismatch`
-exception is raised.
+exception is raised; both inherit from `Cliver::Assertion::DependencyNotMet`
 
 ## Advanced Usage:
 
