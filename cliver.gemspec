@@ -23,4 +23,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'ruby-appraiser-reek'
   spec.add_development_dependency 'ruby-appraiser-rubocop'
+  spec.add_development_dependency 'yard'
 end
