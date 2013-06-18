@@ -57,7 +57,7 @@ the same rules including pre-release semantics.
 
 ## See Also:
 
- - [Committing](COMMITTING.md)
+ - [Contributing](CONTRIBUTING.md)
  - [License](LICENSE.txt)
 
 
