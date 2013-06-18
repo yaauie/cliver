@@ -25,16 +25,15 @@ exception is raised; both inherit from `Cliver::Assertion::DependencyNotMet`
 ## Advanced Usage:
 
 Some programs don't provide nice 'version 1.2.3' strings in their `--version`
-output; `Cliver` lets you provide your own matcher, whose first group is the
-string version.
+output; `Cliver` lets you provide your own version detector with a pattern.
 
 ```ruby
 Cliver.assert('python', '~> 1.7',
               detector: Cliver::Detector.new(/(?<=Python )[0-9][.0-9a-z]+/))
 ```
 
-Other programs don't provide a standard `--version`; `Cliver` allows you to
-provide your own arg:
+Other programs don't provide a standard `--version`; `Cliver::Detector` also
+allows you to provide your own arg to get the version:
 
 ```ruby
 Cliver.assert('janky', '~> 10.1.alpha',
