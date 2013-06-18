@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII" />
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.8.6.1
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '';
+  framesUrl = "frames.html#!" + escape(window.location.href);
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><div id='filecontents'><h1>Cliver</h1>
+
+<p>Sometimes Ruby apps shell out to command-line executables, but there is no
+standard way to ensure those underlying dependencies are met. Users usually
+find out via a nasty stack-trace and whatever wasn&#39;t captured on stderr.</p>
+
+<p><code>Cliver</code> is a simple gem that provides an easy way to make assertions about
+command-line dependencies. Under the covers, it uses <a href="https://github.com/rubygems/rubygems/blob/master/lib/rubygems/requirement.rb">rubygems/requirements</a>
+so it supports the version requirements you&#39;re used to providing in your
+gemspec.</p>
+
+<h2>Usage</h2>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>Cliver</span><span class='period'>.</span><span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>subl</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>                      <span class='comment'># no version requirements
+</span><span class='const'>Cliver</span><span class='period'>.</span><span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>bzip2</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>~&gt; 1.0.6</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>         <span class='comment'># one version requirement
+</span><span class='const'>Cliver</span><span class='period'>.</span><span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>racc</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>&gt;= 1.0</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>&lt; 1.4.9</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span> <span class='comment'># many version requirements
+</span></code></pre>
+
+<p>If the executable can&#39;t be found on your path at all, a 
+<code>Cliver::Assertion::DependencyNotFound</code> exception is raised; if the version
+reached does not meet the requirements, a <code>Cliver::Assertion::DependencyVersionMismatch</code>
+exception is raised; both inherit from <code>Cliver::Assertion::DependencyNotMet</code></p>
+
+<h2>Advanced Usage:</h2>
+
+<p>Some programs don&#39;t provide nice &#39;version 1.2.3&#39; strings in their <code>--version</code>
+output; <code>Cliver</code> lets you provide your own version detector with a pattern.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>Cliver</span><span class='period'>.</span><span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>python</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>~&gt; 1.7</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
+              <span class='label'>detector:</span> <span class='const'>Cliver</span><span class='op'>::</span><span class='const'>Detector</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>(?&lt;=Python )[0-9][.0-9a-z]+</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+</code></pre>
+
+<p>Other programs don&#39;t provide a standard <code>--version</code>; <code>Cliver::Detector</code> also
+allows you to provide your own arg to get the version:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>Cliver</span><span class='period'>.</span><span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>janky</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>~&gt; 10.1.alpha</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
+              <span class='label'>detector:</span> <span class='const'>Cliver</span><span class='op'>::</span><span class='const'>Detector</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>--release-version</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+</code></pre>
+
+<p>Alternatively, you can supply your own detector (anything that responds to
+<code>#to_proc</code>) in the options hash or as a block, so long as it returns a
+<code>Gem::Version</code>-parsable version number; if it returns nil or false when
+version requirements are given, a descriptive <code>ArgumentError</code> is raised.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>Cliver</span><span class='period'>.</span><span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>oddball</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>~&gt; 10.1.alpha</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_oddball_path'>oddball_path</span><span class='op'>|</span>
+  <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>../VERSION</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='id identifier rubyid_oddball_path'>oddball_path</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_chomp'>chomp</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>Since <code>Cliver</code> uses <code>Gem::Requirement</code> for version comparrisons, it obeys all
+the same rules including pre-release semantics.</p>
+
+<h2>See Also:</h2>
+
+<ul>
+<li><a href="CONTRIBUTING.md">Contributing</a></li>
+<li><a href="LICENSE.txt">License</a></li>
+</ul>
+</div></div>
+
+    <div id="footer">
+  Generated on Tue Jun 18 16:22:35 2013 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.6.1 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>
