@@ -29,18 +29,30 @@ output; `Cliver` lets you provide your own matcher, whose first group is the
 string version.
 
 ```ruby
-Cliver.assert('python', '~> 1.7', version_matcher: /Python ([0-9.]+)/)
+Cliver.assert('python', '~> 1.7',
+              detector: Cliver::Detector.new(/(?<=Python )[0-9][.0-9a-z]+/))
 ```
 
 Other programs don't provide a standard `--version`; `Cliver` allows you to
 provide your own arg:
 
 ```ruby
-Cliver.assert('janky', '~> 10.1.alpha', version_arg: '--release-version')
+Cliver.assert('janky', '~> 10.1.alpha',
+              detector: Cliver::Detector.new('--release-version'))
 ```
 
-It obeys all the same rules as `Gem::Requirement`, including pre-release
-semantics.
+Alternatively, you can supply your own detector (anything that responds to
+`#to_proc`) in the options hash or as a block, so long as it returns a
+`Gem::Version`-parsable version number; if it returns nil or false,
+
+```ruby
+Cliver.assert('oddball', '~> 10.1.alpha') do |oddball_path|
+  File.read(File.expand_path('../VERSION', oddball_path)).chomp
+end
+```
+
+Since `Cliver` uses `Gem::Requirement` for version comparrisons, it obeys all
+the same rules including pre-release semantics.
 
 ## See Also:
 
