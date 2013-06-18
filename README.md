@@ -42,4 +42,10 @@ Cliver.assert('janky', '~> 10.1.alpha', version_arg: '--release-version')
 It obeys all the same rules as `Gem::Requirement`, including pre-release
 semantics.
 
+## See Also:
+
+ - [Committing](COMMITTING.md)
+ - [License](LICENSE.txt)
+
+
 [rubygems/requirements]: https://github.com/rubygems/rubygems/blob/master/lib/rubygems/requirement.rb
