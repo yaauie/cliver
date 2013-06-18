@@ -48,7 +48,7 @@ module Cliver
       version || raise(DependencyNotFound, "#{@executable} missing.")
       unless @requirement.satisfied_by?(version)
         raise VersionMismatch,
-              "got #{version}, expected #{@requirement}"
+              "expected #{@executable} to be #{@requirement}, got #{version}"
       end
     end
 
