@@ -38,7 +38,7 @@ module Cliver
       @requirement = Gem::Requirement.new(args)
       @version_arg = options.fetch(:version_arg, '--version')
       @version_matcher = options.fetch(:version_matcher,
-                                       /version ([0-9][.0-9a-z]+)/)
+                                       /version ([0-9][.0-9a-z]+)/i)
     end
 
     # @raise [VersionMismatch] if installed version does not match requirement
