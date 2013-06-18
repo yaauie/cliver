@@ -2,7 +2,7 @@
 require 'cliver/assertion'
 
 describe Cliver::Assertion do
-  let(:mismatch_exception) { Cliver::Assertion::VersionMismatch }
+  let(:mismatch_exception) { Cliver::Assertion::DependencyVersionMismatch }
   let(:missing_exception) { Cliver::Assertion::DependencyNotFound }
   let(:requirements) { ['6.8'] }
   let(:executable) { 'fubar' }

@@ -6,7 +6,7 @@ module Cliver
   # The core of Cliver, Assertion is responsible for detecting the
   # installed version of a binary and determining if it meets the requirements
   class Assertion
-    VersionMismatch = Class.new(ArgumentError)
+    DependencyVersionMismatch = Class.new(ArgumentError)
     DependencyNotFound = Class.new(ArgumentError)
 
     EXECUTABLE_PATTERN = /\A[a-z][a-zA-Z0-9\-_]*\z/.freeze
@@ -41,14 +41,14 @@ module Cliver
       @detector = detector || options.fetch(:detector) { Detector.new }
     end
 
-    # @raise [VersionMismatch] if installed version does not match requirement
+    # @raise [DependencyVersionMismatch] if installed version does not match
     # @raise [DependencyNotFound] if no installed version on your path
     def assert!
       version = installed_version
       raise(DependencyNotFound, "#{@executable} missing.") unless version
 
       if @requirement && !@requirement.satisfied_by?(Gem::Version.new(version))
-        raise VersionMismatch,
+        raise DependencyVersionMismatch,
               "expected #{@executable} to be #{@requirement}, got #{version}"
       end
     end
