@@ -1,29 +1,45 @@
 # Cliver
 
-TODO: Write a gem description
+Sometimes Ruby apps shell out to command-line executables, but there is no
+standard way to ensure those underlying dependencies are met. Users usually
+find out via a nasty stack-trace and whatever wasn't captured on stderr.
 
-## Installation
-
-Add this line to your application's Gemfile:
-
-    gem 'cliver'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install cliver
+`Cliver` is a simple gem that provides an easy way to make assertions about
+command-line dependencies. Under the covers, it uses [rubygems/requirements][]
+so it supports the version requirements you're used to providing in your
+gemspec.
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+Cliver.assert('subl')                      # no version requirements
+Cliver.assert('bzip2', '~> 1.0.6')         # one version requirement
+Cliver.assert('racc', '>= 1.0', '< 1.4.9') # many version requirements
+```
 
-## Contributing
+If the executable can't be found on your path at all, a 
+`Cliver::Assertion::DependencyNotFound` exception is raised; if the version
+reached does not meet the requirements, a `Cliver::Assertion::VersionMismatch`
+exception is raised.
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+## Advanced Usage:
+
+Some programs don't provide nice 'version 1.2.3' strings in their `--version`
+output; `Cliver` lets you provide your own matcher, whose first group is the
+string version.
+
+```ruby
+Cliver.assert('python', '~> 1.7', version_matcher: /Python ([0-9.]+)/)
+```
+
+Other programs don't provide a standard `--version`; `Cliver` allows you to
+provide your own arg:
+
+```ruby
+Cliver.assert('janky', '~> 10.1.alpha', version_arg: '--release-version')
+```
+
+It obeys all the same rules as `Gem::Requirement`, including pre-release
+semantics.
+
+[rubygems/requirements]: https://github.com/rubygems/rubygems/blob/master/lib/rubygems/requirement.rb
