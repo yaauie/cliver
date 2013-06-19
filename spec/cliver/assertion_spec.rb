@@ -1,5 +1,5 @@
 # encoding: utf-8
-require 'cliver/assertion'
+require 'cliver'
 
 describe Cliver::Assertion do
   let(:mismatch_exception) { Cliver::Assertion::DependencyVersionMismatch }

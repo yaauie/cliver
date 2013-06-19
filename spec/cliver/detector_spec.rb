@@ -1,5 +1,5 @@
 # encoding: utf-8
-require 'cliver/detector'
+require 'cliver'
 
 describe Cliver::Detector do
   let(:detector) { Cliver::Detector::Default.new(*args) }
