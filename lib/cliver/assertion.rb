@@ -59,11 +59,13 @@ module Cliver
     # @return [String] Gem::Version-parsable string version
     # @return [true]   if present and no requirements (optimization)
     def installed_version
-      which, _ = Open3.capture2e("which #{@executable}")
-      executable_path = which.chomp
-      return nil if executable_path.empty?
+      # command -v is the POSIX-specified implementation behind which.
+      # http://pubs.opengroup.org/onlinepubs/009695299/utilities/command.html
+      which, status = Open3.capture2e('command', '-v', @executable)
+      return nil unless status.success?
       return true unless @requirement
 
+      executable_path = which.chomp
       @detector.to_proc.call(executable_path).tap do |version|
         unless version
           raise ArgumentError,
