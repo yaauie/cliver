@@ -1,6 +1,4 @@
 # encoding: utf-8
-require 'shellwords'
-
 require 'cliver/version'
 require 'cliver/which'
 require 'cliver/assertion'
