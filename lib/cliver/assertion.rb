@@ -6,6 +6,9 @@ module Cliver
   # The core of Cliver, Assertion is responsible for detecting the
   # installed version of a binary and determining if it meets the requirements
   class Assertion
+
+    include Which # platform-specific implementation of `which`
+
     DependencyNotMet = Class.new(ArgumentError)
     DependencyVersionMismatch = Class.new(DependencyNotMet)
     DependencyNotFound = Class.new(DependencyNotMet)
@@ -59,13 +62,10 @@ module Cliver
     # @return [String] Gem::Version-parsable string version
     # @return [true]   if present and no requirements (optimization)
     def installed_version
-      # command -v is the POSIX-specified implementation behind which.
-      # http://pubs.opengroup.org/onlinepubs/009695299/utilities/command.html
-      which, status = Open3.capture2e('command', '-v', @executable)
-      return nil unless status.success?
+      executable_path = which(@executable)
+      return nil unless executable_path
       return true unless @requirement
 
-      executable_path = which.chomp
       @detector.to_proc.call(executable_path).tap do |version|
         unless version
           raise ArgumentError,
