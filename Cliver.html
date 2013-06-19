@@ -80,7 +80,7 @@
   
     <dt class="r1 last">Defined in:</dt>
     <dd class="r1 last">lib/cliver.rb<span class="defines">,<br />
-  lib/cliver/version.rb,<br /> lib/cliver/detector.rb,<br /> lib/cliver/assertion.rb,<br /> lib/cliver/detector/default.rb</span>
+  lib/cliver/which.rb,<br /> lib/cliver/version.rb,<br /> lib/cliver/detector.rb,<br /> lib/cliver/assertion.rb,<br /> lib/cliver/which/posix.rb,<br /> lib/cliver/which/windows.rb,<br /> lib/cliver/detector/default.rb</span>
 </dd>
   
 </dl>
@@ -90,7 +90,7 @@
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Cliver/Detector.html" title="Cliver::Detector (module)">Detector</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Cliver/Detector.html" title="Cliver::Detector (module)">Detector</a></span>, <span class='object_link'><a href="Cliver/Which.html" title="Cliver::Which (module)">Which</a></span>
     
   
     
@@ -106,7 +106,7 @@
         <dt id="VERSION-constant" class="">VERSION =
           
         </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>0.1.0</span><span class='tstring_end'>'</span></span></pre></dd>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>0.1.1</span><span class='tstring_end'>'</span></span></pre></dd>
       
     </dl>
   
@@ -184,12 +184,12 @@
       <pre class="lines">
 
 
-9
 10
-11</pre>
+11
+12</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cliver.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'lib/cliver.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='const'>Assertion</span><span class='period'>.</span><span class='id identifier rubyid_assert!'>assert!</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
@@ -204,7 +204,7 @@
 </div>
 
     <div id="footer">
-  Generated on Tue Jun 18 16:22:35 2013 by
+  Generated on Wed Jun 19 09:50:58 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.1 (ruby-1.9.3).
 </div>
