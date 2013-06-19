@@ -11,3 +11,6 @@ branches:
   only:
     - develop
     - master
+    - /^release\/-.*$/
+    - /^support\/-.*$/
+    - /^hotfix\/-.*$/
