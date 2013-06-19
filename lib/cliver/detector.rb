@@ -1,5 +1,5 @@
 # encoding: utf-8
-require 'open3'
+require 'shellwords'
 
 module Cliver
   # The interface for Cliver::Detector classes.
@@ -28,7 +28,9 @@ module Cliver
     # @param executable [String] - the path to the executable to test
     # @return [String] - should be Gem::Version-parsable.
     def detect_version(executable)
-      output, _ = Open3.capture2e(*version_command(executable))
+      command_parts = version_command(executable)
+      escaped_command_parts = command_parts.map(&Shellwords.method(:escape))
+      output = `#{escaped_command_parts.join(' ')} 2>&1`
       ver = output.scan(version_pattern)
       ver && ver.first
     end

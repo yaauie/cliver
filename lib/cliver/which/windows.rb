@@ -1,6 +1,5 @@
 # encoding: utf-8
-
-require 'open3'
+require 'shellwords'
 
 module Cliver
   module Which
@@ -12,11 +11,13 @@ module Cliver
       def which(executable)
         # `where` returns newline-separated files found on path, but doesn't
         # ensure that they are executable as commands.
-        where, _ = Open3.capture2e('where', executable)
+        where = `where #{Shellwords.escape executable} 2>&1`
         where.split("\n").find do |found|
           next if found.empty?
           File.executable?(found)
         end
+      rescue Errno::ENOENT
+        raise '"where" must be on your path to use Cliver on Windows.'
       end
     end
   end

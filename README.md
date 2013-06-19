@@ -54,6 +54,12 @@ end
 Since `Cliver` uses `Gem::Requirement` for version comparrisons, it obeys all
 the same rules including pre-release semantics.
 
+## Supported Platforms
+
+The goal is to have full support for all platforms running ruby >= 1.9.2,
+including rubinius and jruby implementations. Windows has support
+but is not available as a build target in [travis_ci][].
+
 ## See Also:
 
  - [YARD Documentation][yard-docs]
@@ -63,3 +69,4 @@ the same rules including pre-release semantics.
 
 [rubygems/requirements]: https://github.com/rubygems/rubygems/blob/master/lib/rubygems/requirement.rb
 [yard-docs]: http://yaauie.github.io/cliver/
+[travis-ci]: https://travis-ci.org/yaauie/cliver
