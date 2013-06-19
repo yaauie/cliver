@@ -12,7 +12,7 @@ module Cliver
       def which(executable)
         # `where` returns newline-separated files found on path, but doesn't
         # ensure that they are executable as commands.
-        where, _ = Open3.capture2e('where', executable)
+        where, _, _ = Open3.capture3('where', executable)
         where.split("\n").find do |found|
           next if found.empty?
           File.executable?(found)

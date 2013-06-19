@@ -28,7 +28,7 @@ module Cliver
     # @param executable [String] - the path to the executable to test
     # @return [String] - should be Gem::Version-parsable.
     def detect_version(executable)
-      output, _ = Open3.capture2e(*version_command(executable))
+      output, _, _ = Open3.capture3(*version_command(executable))
       ver = output.scan(version_pattern)
       ver && ver.first
     end

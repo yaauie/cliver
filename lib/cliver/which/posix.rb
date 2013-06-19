@@ -10,7 +10,7 @@ module Cliver
       # @param executable [String]
       # @return [nil,String] - path to found executable
       def which(executable)
-        which, _ = Open3.capture2e('which', executable)
+        which, _, _ = Open3.capture3('which', executable)
         executable_path = which.chomp
         return nil if executable_path.empty?
         executable_path
