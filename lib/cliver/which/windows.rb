@@ -17,6 +17,8 @@ module Cliver
           next if found.empty?
           File.executable?(found)
         end
+      rescue Errno::ENOENT
+        raise '"where" must be on your path to use Cliver on Windows.'
       end
     end
   end

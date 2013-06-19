@@ -10,11 +10,12 @@ module Cliver
       # @param executable [String]
       # @return [nil,String] - path to found executable
       def which(executable)
-        # command -v is the POSIX-specified implementation behind which.
-        # http://pubs.opengroup.org/onlinepubs/009695299/utilities/command.html
-        which, status = Open3.capture2e('command', '-v', executable)
-        return nil unless status.success?
-        which.chomp
+        which, _ = Open3.capture2e('which', executable)
+        executable_path = which.chomp
+        return nil if executable_path.empty?
+        executable_path
+      rescue Errno::ENOENT
+        raise '"which" must be on your path to use Cliver on this system.'
       end
     end
   end
