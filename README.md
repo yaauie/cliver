@@ -56,8 +56,10 @@ the same rules including pre-release semantics.
 
 ## See Also:
 
+ - [YARD Documentation][yard-docs]
  - [Contributing](CONTRIBUTING.md)
  - [License](LICENSE.txt)
 
 
 [rubygems/requirements]: https://github.com/rubygems/rubygems/blob/master/lib/rubygems/requirement.rb
+[yard-docs]: http://yaauie.github.io/cliver/
