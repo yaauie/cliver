@@ -23,18 +23,18 @@ module Cliver
 
     # @return [Regexp] - the pattern used against the output
     #                    of the #version_command, which should
-    #                    typically be Gem::Version-parsable.
+    #                    contain a {Gem::Version}-parsable substring.
     def version_pattern
       raise NotImplementedError unless defined? super
       super
     end
 
     # @param executable_path [String] - the path to the executable to test
-    # @return [String] - should be Gem::Version-parsable.
+    # @return [String] - should be contain {Gem::Version}-parsable
+    #                    version number.
     def detect_version(executable_path)
       output = `#{version_command(executable_path).shelljoin} 2>&1`
-      ver = output.scan(version_pattern)
-      ver && ver.first
+      output[version_pattern]
     end
 
     # This is the interface that any detector must have.
