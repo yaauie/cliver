@@ -28,9 +28,7 @@ module Cliver
     # @param executable [String] - the path to the executable to test
     # @return [String] - should be Gem::Version-parsable.
     def detect_version(executable)
-      command_parts = version_command(executable)
-      escaped_command_parts = command_parts.map(&Shellwords.method(:escape))
-      output = `#{escaped_command_parts.join(' ')} 2>&1`
+      output = `#{version_command(executable).shelljoin} 2>&1`
       ver = output.scan(version_pattern)
       ver && ver.first
     end
