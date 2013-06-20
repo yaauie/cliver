@@ -6,6 +6,7 @@ module Cliver
     # Windows-specific implementation of Which
     # Required and mixed into Cliver::Which in windows environments
     module Windows
+      # Windows-specific implementation of `which`
       # @param executable [String]
       # @return [nil,String] - path to found executable
       def which(executable)

@@ -5,6 +5,8 @@ require 'cliver/assertion'
 require 'cliver/detector'
 require 'cliver/detector/default'
 
+# Cliver is tool for making dependency assertions against
+# command-line executables.
 module Cliver
   # @see Cliver::Assertion
   # @overload (see Cliver::Assertion#initialize)
@@ -19,6 +21,8 @@ module Cliver
 
   # Wraps Cliver::assert and returns truthy/false instead of raising
   # @see Cliver::assert
+  # @overload (see Cliver::Assertion#initialize)
+  # @param (see Cliver::Assertion#initialize)
   # @return [False,String] either returns false or the reason why the
   #                        assertion was unmet.
   def dependency_unmet?(*args, &block)

@@ -9,8 +9,13 @@ module Cliver
 
     include Which # platform-specific implementation of `which`
 
+    # An exception class raised when assertion is not met
     DependencyNotMet = Class.new(ArgumentError)
+
+    # An exception that is raised when executable present is the wrong version
     DependencyVersionMismatch = Class.new(DependencyNotMet)
+
+    # An exception that is raised when executable is not present
     DependencyNotFound = Class.new(DependencyNotMet)
 
     # @overload initialize(executable, *requirements, options = {})
@@ -21,10 +26,10 @@ module Cliver
     #   Where <operator> is optional (default '='') and in the set
     #     '=', '!=', '>', '<', '>=', '<=', or '~>'
     #   And <version> is dot-separated integers with optional
-    #   alphanumeric pre-release suffix
-    #   @see Gem::Requirement::new
+    #   alphanumeric pre-release suffix. See also
+    #   {http://docs.rubygems.org/read/chapter/16 Specifying Versions}
     # @param options [Hash<Symbol,Object>]
-    # @options options [Cliver::Detector, #to_proc] :detector
+    # @option options [Cliver::Detector, #to_proc] :detector
     # @yieldparam [String] full path to executable
     # @yieldreturn [String] Gem::Version-parsable string version
     def initialize(executable, *args, &detector)
@@ -47,6 +52,9 @@ module Cliver
       end
     end
 
+    # Finds the executable on your path using {Cliver::Which};
+    # if the executable is present and version requirements are specified,
+    # uses the specified detector to get the current version.
     # @private
     # @return [nil]    if no version present
     # @return [String] Gem::Version-parsable string version
