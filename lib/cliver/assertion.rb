@@ -13,8 +13,6 @@ module Cliver
     DependencyVersionMismatch = Class.new(DependencyNotMet)
     DependencyNotFound = Class.new(DependencyNotMet)
 
-    EXECUTABLE_PATTERN = /\A[a-z][a-zA-Z0-9\-_]*\z/.freeze
-
     # @overload initialize(executable, *requirements, options = {})
     # @param executable [String]
     # @param requirements [Array<String>, String] splat of strings
@@ -30,8 +28,6 @@ module Cliver
     # @yieldparam [String] full path to executable
     # @yieldreturn [String] Gem::Version-parsable string version
     def initialize(executable, *args, &detector)
-      raise ArgumentError, 'executable' unless executable[EXECUTABLE_PATTERN]
-
       options = args.last.kind_of?(Hash) ? args.pop : {}
 
       @executable = executable.dup.freeze
@@ -43,11 +39,11 @@ module Cliver
     # @raise [DependencyNotFound] if no installed version on your path
     def assert!
       version = installed_version
-      raise(DependencyNotFound, "#{@executable} missing.") unless version
+      raise(DependencyNotFound, "'#{@executable}' missing.") unless version
 
       if @requirement && !@requirement.satisfied_by?(Gem::Version.new(version))
         raise DependencyVersionMismatch,
-              "expected #{@executable} to be #{@requirement}, got #{version}"
+              "expected '#{@executable}' to be #{@requirement}, got #{version}"
       end
     end
 
