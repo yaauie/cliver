@@ -98,7 +98,7 @@ describe Cliver::Assertion do
     let(:detector_touches) { [] }
     context 'ruby with detector-block returned value' do
       let(:requirements) { ['~> 10.1.4'] }
-      let(:fake_version) { '10.1.5' }
+      let(:fake_version) { 'ruby 10.1.5' }
       let(:executable) { 'ruby' }
       let(:detector) do
         proc do |ruby|
@@ -116,7 +116,7 @@ describe Cliver::Assertion do
         end
       end
       context 'when block-return doesn\'t meet requirements' do
-        let(:fake_version) { '10.1.3' }
+        let(:fake_version) { '10.1433.32.alpha' }
         it 'should raise' do
           expect { assertion.assert! }.to raise_exception mismatch_exception
         end

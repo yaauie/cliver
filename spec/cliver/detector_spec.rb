@@ -5,8 +5,8 @@ describe Cliver::Detector do
   let(:detector) { Cliver::Detector::Default.new(*args) }
   let(:defaults) do
     {
-      version_pattern: Cliver::Detector::Default::DEFAULT_VERSION_PATTERN,
-      command_arg:     Cliver::Detector::Default::DEFAULT_COMMAND_ARG,
+      :version_pattern => Cliver::Detector::Default::DEFAULT_VERSION_PATTERN,
+      :command_arg =>     Cliver::Detector::Default::DEFAULT_COMMAND_ARG,
     }
   end
   let(:args) { [] }

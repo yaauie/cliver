@@ -9,7 +9,7 @@ module Cliver
     include Detector
 
     # Default pattern to use when searching {#version_command} output
-    DEFAULT_VERSION_PATTERN = /(?<=version )[0-9][.0-9a-z]+/i.freeze
+    DEFAULT_VERSION_PATTERN = /version [0-9][.0-9a-z]+/i.freeze
 
     # Default command argument to use against the executable to get
     # version output
@@ -20,8 +20,8 @@ module Cliver
     # @overload initialize(command_arg)
     # @overload initialize(version_pattern)
     # @overload initialize(command_arg, version_pattern)
-    # @param command_arg [String] ('--version')
-    # @param version_pattern [Regexp] (/(?<=version )[0-9][.0-9a-z]+/i)
+    # @param command_arg [String]
+    # @param version_pattern [Regexp]
     def initialize(*args)
       command_arg = args.shift if args.first.kind_of?(String)
       version_pattern = args.shift

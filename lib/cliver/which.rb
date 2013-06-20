@@ -7,10 +7,10 @@ module Cliver
   module Which
     case RbConfig::CONFIG['host_os']
     when /mswin|msys|mingw|cygwin|bccwin|wince|emc/
-      require_relative 'which/windows'
+      require 'cliver/which/windows'
       include Cliver::Which::Windows
     else
-      require_relative 'which/posix'
+      require 'cliver/which/posix'
       include Cliver::Which::Posix
     end
   end

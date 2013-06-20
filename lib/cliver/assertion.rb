@@ -18,6 +18,9 @@ module Cliver
     # An exception that is raised when executable is not present
     DependencyNotFound = Class.new(DependencyNotMet)
 
+    # A pattern for extracting a {Gem::Version}-parsable version
+    PARSABLE_GEM_VERSION = /[0-9]+(.[0-9]+){0,4}(.[a-zA-Z0-9]+)?/.freeze
+
     # @overload initialize(executable, *requirements, options = {})
     # @param executable [String]
     # @param requirements [Array<String>, String] splat of strings
@@ -29,9 +32,9 @@ module Cliver
     #   alphanumeric pre-release suffix. See also
     #   {http://docs.rubygems.org/read/chapter/16 Specifying Versions}
     # @param options [Hash<Symbol,Object>]
-    # @option options [Cliver::Detector, #to_proc] :detector
+    # @option options [Cliver::Detector, #to_proc] :detector (Detector.new)
     # @yieldparam [String] full path to executable
-    # @yieldreturn [String] Gem::Version-parsable string version
+    # @yieldreturn [String] containing a {Gem::Version}-parsable substring
     def initialize(executable, *args, &detector)
       options = args.last.kind_of?(Hash) ? args.pop : {}
 
@@ -64,7 +67,8 @@ module Cliver
       return nil unless executable_path
       return true unless @requirement
 
-      @detector.to_proc.call(executable_path).tap do |version|
+      version_string = @detector.to_proc.call(executable_path)
+      (version_string && version_string[PARSABLE_GEM_VERSION]).tap do |version|
         unless version
           raise ArgumentError,
                 "found #{@executable} at '#{executable_path}' " +
