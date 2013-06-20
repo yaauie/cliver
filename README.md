@@ -57,7 +57,8 @@ the same rules including pre-release semantics.
 ## Supported Platforms
 
 The goal is to have full support for all platforms running ruby >= 1.9.2,
-including rubinius and jruby implementations. Windows has support
+including rubinius and jruby implementations, as well as basic support for
+legacy ruby 1.8.7. Windows has support in the codebase,
 but is not available as a build target in [travis_ci][].
 
 ## See Also:
