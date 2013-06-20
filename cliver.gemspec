@@ -4,6 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'cliver/version'
 
 Gem::Specification.new do |spec|
+  RUBY_18 = RUBY_VERSION[/\A1\.8\..*/]
   spec.name          = 'cliver'
   spec.version       = Cliver::VERSION
   spec.authors       = ['Ryan Biesemeyer']
@@ -22,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler', '~> 1.3'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec'
-  spec.add_development_dependency 'ruby-appraiser-reek'
-  spec.add_development_dependency 'ruby-appraiser-rubocop'
+  spec.add_development_dependency 'ruby-appraiser-reek'    unless RUBY_18
+  spec.add_development_dependency 'ruby-appraiser-rubocop' unless RUBY_18
   spec.add_development_dependency 'yard'
 end
