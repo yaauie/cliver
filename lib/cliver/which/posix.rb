@@ -6,6 +6,7 @@ module Cliver
     # Posix implementation of Which
     # Required and mixed into Cliver::Which in posix environments
     module Posix
+      # Posix adapter to `which`
       # @param executable [String]
       # @return [nil,String] - path to found executable
       def which(executable)
