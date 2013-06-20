@@ -15,12 +15,6 @@ module Cliver
 
     EXECUTABLE_PATTERN = /\A[a-z][a-zA-Z0-9\-_]*\z/.freeze
 
-    # Creates a new instance with the args and calls #assert.
-    # @see #assert
-    def self.assert!(*args, &block)
-      new(*args, &block).assert!
-    end
-
     # @overload initialize(executable, *requirements, options = {})
     # @param executable [String]
     # @param requirements [Array<String>, String] splat of strings

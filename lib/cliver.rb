@@ -6,9 +6,13 @@ require 'cliver/detector'
 require 'cliver/detector/default'
 
 module Cliver
-  # See Cliver::Assertion#assert
+  # @see Cliver::Assertion
+  # @overload (see Cliver::Assertion#initialize)
+  # @param (see Cliver::Assertion#initialize)
+  # @raise (see Cliver::Assertion#assert!)
+  # @return (see Cliver::Assertion#assert!)
   def self.assert(*args, &block)
-    Assertion.assert!(*args, &block)
+    Assertion.new(*args, &block).assert!
   end
 
   extend self
