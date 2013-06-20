@@ -26,7 +26,7 @@ module Cliver
     false
   rescue Assertion::DependencyNotMet => error
     # Cliver::Assertion::VersionMismatch -> 'Version Mismatch'
-    reason = error.class.name.split('::').last.gsub(/(?<!\A)[A-Z]/, " \\0")
+    reason = error.class.name.split('::').last.gsub(/(?<!\A)[A-Z]/, ' \\0')
     "#{reason}: #{error.message}"
   end
 end
