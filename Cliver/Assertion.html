@@ -121,24 +121,52 @@ version of a binary and determining if it meets the requirements</p>
     <dl class="constants">
       
         <dt id="DependencyNotMet-constant" class="">DependencyNotMet =
-          
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>An exception class raised when assertion is not met</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
         </dt>
         <dd><pre class="code"><span class='const'>Class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>ArgumentError</span><span class='rparen'>)</span></pre></dd>
       
         <dt id="DependencyVersionMismatch-constant" class="">DependencyVersionMismatch =
-          
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>An exception that is raised when executable present is the wrong version</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
         </dt>
         <dd><pre class="code"><span class='const'>Class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>DependencyNotMet</span><span class='rparen'>)</span></pre></dd>
       
         <dt id="DependencyNotFound-constant" class="">DependencyNotFound =
-          
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>An exception that is raised when executable is not present</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
         </dt>
         <dd><pre class="code"><span class='const'>Class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>DependencyNotMet</span><span class='rparen'>)</span></pre></dd>
-      
-        <dt id="EXECUTABLE_PATTERN-constant" class="">EXECUTABLE_PATTERN =
-          
-        </dt>
-        <dd><pre class="code"><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\A[a-z][a-zA-Z0-9\-_]*\z</span><span class='regexp_end'>/</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
       
     </dl>
   
@@ -149,39 +177,6 @@ version of a binary and determining if it meets the requirements</p>
 
 
 
-  
-    <h2>
-      Class Method Summary
-      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
-    </h2>
-
-    <ul class="summary">
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#assert%21-class_method" title="assert! (class method)">+ (Object) <strong>assert!</strong>(*args, &amp;block) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Creates a new instance with the args and calls #assert.</p>
-</div></span>
-  
-</li>
-
-      
-    </ul>
   
     <h2>
       Instance Method Summary
@@ -255,7 +250,11 @@ version of a binary and determining if it meets the requirements</p>
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Finds the executable on your path using <span class='object_link'><a href="Which.html" title="Cliver::Which (module)">Which</a></span>; if the executable
+is present and version requirements are specified, uses the specified
+detector to get the current version.</p>
+</div></span>
   
 </li>
 
@@ -326,7 +325,7 @@ version of a binary and determining if it meets the requirements</p>
 <pre class="code ruby"><code class="ruby">'=', '!=', '&gt;', '&lt;', '&gt;=', '&lt;=', or '~&gt;'</code></pre>
 
 <p>And &lt;version&gt; is dot-separated integers with optional alphanumeric
-pre-release suffix @see Gem::Requirement::new</p>
+pre-release suffix. See also <a href="http://docs.rubygems.org/read/chapter/16" target="_parent" title="Specifying Versions">Specifying Versions</a></p>
 </div>
       
     </li>
@@ -343,6 +342,14 @@ pre-release suffix @see Gem::Requirement::new</p>
     </li>
   
 </ul>
+
+  
+    
+    
+    
+    
+    
+    
 
 <p class="tag_title">Yield Parameters:</p>
 <ul class="yieldparam">
@@ -382,19 +389,6 @@ pre-release suffix @see Gem::Requirement::new</p>
     </li>
   
 </ul>
-<p class="tag_title">Raises:</p>
-<ul class="raise">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>ArgumentError</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
 
 </div><table class="source_code">
   <tr>
@@ -402,22 +396,18 @@ pre-release suffix @see Gem::Requirement::new</p>
       <pre class="lines">
 
 
+35
+36
+37
 38
 39
 40
-41
-42
-43
-44
-45
-46</pre>
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cliver/assertion.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'lib/cliver/assertion.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_executable'>executable</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_detector'>detector</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>executable</span><span class='tstring_end'>'</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_executable'>executable</span><span class='lbracket'>[</span><span class='const'>EXECUTABLE_PATTERN</span><span class='rbracket'>]</span>
-
   <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_pop'>pop</span> <span class='op'>:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
 
   <span class='ivar'>@executable</span> <span class='op'>=</span> <span class='id identifier rubyid_executable'>executable</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span>
@@ -431,60 +421,6 @@ pre-release suffix @see Gem::Requirement::new</p>
   
 </div>
 
-
-  <div id="class_method_details" class="method_details_list">
-    <h2>Class Method Details</h2>
-
-    
-      <div class="method_details first">
-  <h3 class="signature first" id="assert!-class_method">
-  
-    + (<tt>Object</tt>) <strong>assert!</strong>(*args, &amp;block) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Creates a new instance with the args and calls #assert.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-  <p class="tag_title">See Also:</p>
-  <ul class="see">
-    
-      <li>#assert</li>
-    
-  </ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-20
-21
-22</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/cliver/assertion.rb', line 20</span>
-
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_assert!'>assert!</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_assert!'>assert!</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-  </div>
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
@@ -546,26 +482,26 @@ pre-release suffix @see Gem::Requirement::new</p>
       <pre class="lines">
 
 
+45
+46
+47
+48
+49
 50
 51
 52
-53
-54
-55
-56
-57
-58</pre>
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cliver/assertion.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'lib/cliver/assertion.rb', line 45</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_assert!'>assert!</span>
   <span class='id identifier rubyid_version'>version</span> <span class='op'>=</span> <span class='id identifier rubyid_installed_version'>installed_version</span>
-  <span class='id identifier rubyid_raise'>raise</span><span class='lparen'>(</span><span class='const'>DependencyNotFound</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@executable</span><span class='rbrace'>}</span><span class='tstring_content'> missing.</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_version'>version</span>
+  <span class='id identifier rubyid_raise'>raise</span><span class='lparen'>(</span><span class='const'>DependencyNotFound</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>'</span><span class='embexpr_beg'>#{</span><span class='ivar'>@executable</span><span class='rbrace'>}</span><span class='tstring_content'>' missing.</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_version'>version</span>
 
   <span class='kw'>if</span> <span class='ivar'>@requirement</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='ivar'>@requirement</span><span class='period'>.</span><span class='id identifier rubyid_satisfied_by?'>satisfied_by?</span><span class='lparen'>(</span><span class='const'>Gem</span><span class='op'>::</span><span class='const'>Version</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_version'>version</span><span class='rparen'>)</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_raise'>raise</span> <span class='const'>DependencyVersionMismatch</span><span class='comma'>,</span>
-          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>expected </span><span class='embexpr_beg'>#{</span><span class='ivar'>@executable</span><span class='rbrace'>}</span><span class='tstring_content'> to be </span><span class='embexpr_beg'>#{</span><span class='ivar'>@requirement</span><span class='rbrace'>}</span><span class='tstring_content'>, got </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_version'>version</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>expected '</span><span class='embexpr_beg'>#{</span><span class='ivar'>@executable</span><span class='rbrace'>}</span><span class='tstring_content'>' to be </span><span class='embexpr_beg'>#{</span><span class='ivar'>@requirement</span><span class='rbrace'>}</span><span class='tstring_content'>, got </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_version'>version</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -585,6 +521,10 @@ pre-release suffix @see Gem::Requirement::new</p>
 </h3><div class="docstring">
   <div class="discussion">
     
+<p>Finds the executable on your path using <span class='object_link'><a href="Which.html" title="Cliver::Which (module)">Which</a></span>; if the executable
+is present and version requirements are specified, uses the specified
+detector to get the current version.</p>
+
 
   </div>
 </div>
@@ -643,6 +583,8 @@ pre-release suffix @see Gem::Requirement::new</p>
       <pre class="lines">
 
 
+62
+63
 64
 65
 66
@@ -653,12 +595,10 @@ pre-release suffix @see Gem::Requirement::new</p>
 71
 72
 73
-74
-75
-76</pre>
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cliver/assertion.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'lib/cliver/assertion.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_installed_version'>installed_version</span>
   <span class='id identifier rubyid_executable_path'>executable_path</span> <span class='op'>=</span> <span class='id identifier rubyid_which'>which</span><span class='lparen'>(</span><span class='ivar'>@executable</span><span class='rparen'>)</span>
@@ -683,7 +623,7 @@ pre-release suffix @see Gem::Requirement::new</p>
 </div>
 
     <div id="footer">
-  Generated on Wed Jun 19 12:59:42 2013 by
+  Generated on Thu Jun 20 12:08:43 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.1 (ruby-1.9.3).
 </div>

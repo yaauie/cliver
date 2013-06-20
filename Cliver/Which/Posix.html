@@ -128,9 +128,8 @@ posix environments</p>
   
 
   
-    <span class="summary_desc"><div class='inline'><ul><li>
-<p>path to found executable.</p>
-</li></ul>
+    <span class="summary_desc"><div class='inline'>
+<p>Posix adapter to `which`.</p>
 </div></span>
   
 </li>
@@ -156,9 +155,8 @@ posix environments</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    <ul><li>
-<p>path to found executable</p>
-</li></ul>
+    
+<p>Posix adapter to `which`</p>
 
 
   </div>
@@ -206,17 +204,17 @@ posix environments</p>
       <pre class="lines">
 
 
-11
 12
 13
 14
 15
 16
 17
-18</pre>
+18
+19</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cliver/which/posix.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'lib/cliver/which/posix.rb', line 12</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_which'>which</span><span class='lparen'>(</span><span class='id identifier rubyid_executable'>executable</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_which'>which</span> <span class='op'>=</span> <span class='backtick'>`</span><span class='tstring_content'>which </span><span class='embexpr_beg'>#{</span><span class='const'>Shellwords</span><span class='period'>.</span><span class='id identifier rubyid_escape'>escape</span> <span class='id identifier rubyid_executable'>executable</span><span class='rbrace'>}</span><span class='tstring_content'> 2&gt;&amp;1</span><span class='tstring_end'>`</span></span>
@@ -236,7 +234,7 @@ posix environments</p>
 </div>
 
     <div id="footer">
-  Generated on Wed Jun 19 12:59:41 2013 by
+  Generated on Thu Jun 20 12:08:43 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.1 (ruby-1.9.3).
 </div>
