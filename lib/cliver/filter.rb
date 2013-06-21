@@ -8,8 +8,10 @@ module Cliver
 
     def requirements(requirements)
       requirements.map do |requirement|
-        *anchor, version = requirement.split(/\b(?=\d)/, 2)
-        (anchor.dup << call(version)).join
+        req_parts = requirement.split(/\b(?=\d)/, 2)
+        version = req_parts.last
+        version.replace call(version)
+        req_parts.join
       end
     end
   end
