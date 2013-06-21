@@ -3,7 +3,7 @@ require 'cliver/version'
 require 'cliver/which'
 require 'cliver/assertion'
 require 'cliver/detector'
-require 'cliver/detector/default'
+require 'cliver/filter'
 
 # Cliver is tool for making dependency assertions against
 # command-line executables.
