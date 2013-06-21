@@ -97,13 +97,13 @@ describe Cliver::Assertion do
     end
     let(:detector_touches) { [] }
     context 'ruby using filter' do
-      let(:requirements) { ['~> 1.2.3p112'] }
+      let(:requirement) { '~> 1.2.3p112' }
       let(:executable) { 'ruby' }
       let(:filter) { proc { |ver| ver.tr('p', '.') } }
       let(:detector) { proc { '1.2.3p456' } }
       let(:assertion) do
-        Cliver::Assertion.new(executable, *requirements, :filter => filter,
-                                                         :detector => detector)
+        Cliver::Assertion.new(executable, requirement, :filter => filter,
+                                                       :detector => detector)
       end
       let(:installed_version) { assertion.installed_version }
       subject { installed_version }
