@@ -51,13 +51,23 @@ Cliver.assert('oddball', '~> 10.1.alpha') do |oddball_path|
 end
 ```
 
+And since some programs don't always spit out nice semver-friendly version
+numbers at all, a filter proc can be supplied to clean it up. Note how the
+filter is applied to both your requirements and the executable's output:
+
+```ruby
+Cliver.assert('built-thing', '~> 2013.4r8273',
+              filter: proc { |ver| ver.tr('r','.') })
+```
+
 Since `Cliver` uses `Gem::Requirement` for version comparrisons, it obeys all
 the same rules including pre-release semantics.
 
 ## Supported Platforms
 
 The goal is to have full support for all platforms running ruby >= 1.9.2,
-including rubinius and jruby implementations. Windows has support
+including rubinius and jruby implementations, as well as basic support for
+legacy ruby 1.8.7. Windows has support in the codebase,
 but is not available as a build target in [travis_ci][].
 
 ## See Also:

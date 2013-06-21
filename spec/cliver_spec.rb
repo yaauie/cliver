@@ -15,7 +15,7 @@ describe Cliver do
     end
     context 'when dependency is present, but wrong version' do
       let(:executable) { 'ruby' }
-      let(:requirements) { ['~>0.1.0'] }
+      let(:requirements) { ['~> 0.1.0'] }
       let(:detector) { proc { RUBY_VERSION.sub('p', '.') } }
       it { should_not be_false }
       it { should match 'Dependency Version Mismatch:' }

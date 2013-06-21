@@ -3,7 +3,7 @@ require 'cliver/version'
 require 'cliver/which'
 require 'cliver/assertion'
 require 'cliver/detector'
-require 'cliver/detector/default'
+require 'cliver/filter'
 
 # Cliver is tool for making dependency assertions against
 # command-line executables.
@@ -30,7 +30,7 @@ module Cliver
     false
   rescue Assertion::DependencyNotMet => error
     # Cliver::Assertion::VersionMismatch -> 'Version Mismatch'
-    reason = error.class.name.split('::').last.gsub(/(?<!\A)[A-Z]/, ' \\0')
+    reason = error.class.name.split(':').last.gsub(/([a-z])([A-Z])/, '\\1 \\2')
     "#{reason}: #{error.message}"
   end
 end
