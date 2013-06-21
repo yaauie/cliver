@@ -51,6 +51,15 @@ Cliver.assert('oddball', '~> 10.1.alpha') do |oddball_path|
 end
 ```
 
+And since some programs don't always spit out nice semver-friendly version
+numbers at all, a filter proc can be supplied to clean it up. Note how the
+filter is applied to both your requirements and the executable's output:
+
+```ruby
+Cliver.assert('built-thing', '~> 2013.4r8273',
+              filter: proc { |ver| ver.tr('r','.') })
+```
+
 Since `Cliver` uses `Gem::Requirement` for version comparrisons, it obeys all
 the same rules including pre-release semantics.
 
