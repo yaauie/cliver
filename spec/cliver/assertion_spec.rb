@@ -96,6 +96,20 @@ describe Cliver::Assertion do
       end
     end
     let(:detector_touches) { [] }
+    context 'ruby using filter' do
+      let(:requirements) { ['~> 1.2.3p112'] }
+      let(:executable) { 'ruby' }
+      let(:filter) { proc { |ver| ver.tr('p', '.') } }
+      let(:detector) { proc { '1.2.3p456' } }
+      let(:assertion) do
+        Cliver::Assertion.new(executable, *requirements, :filter => filter,
+                                                         :detector => detector)
+      end
+      let(:installed_version) { assertion.installed_version }
+      subject { installed_version }
+
+      it { should eq '1.2.3.456' }
+    end
     context 'ruby with detector-block returned value' do
       let(:requirements) { ['~> 10.1.4'] }
       let(:fake_version) { 'ruby 10.1.5' }

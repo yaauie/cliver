@@ -33,14 +33,19 @@ module Cliver
     #   {http://docs.rubygems.org/read/chapter/16 Specifying Versions}
     # @param options [Hash<Symbol,Object>]
     # @option options [Cliver::Detector, #to_proc] :detector (Detector.new)
+    # @option options [#to_proc] :filter ({Cliver::Filter::IDENTITY})
     # @yieldparam [String] full path to executable
     # @yieldreturn [String] containing a {Gem::Version}-parsable substring
     def initialize(executable, *args, &detector)
       options = args.last.kind_of?(Hash) ? args.pop : {}
+      @detector = detector || options.fetch(:detector) { Detector.new }
+      @filter = options.fetch(:filter, Filter::IDENTITY).extend(Filter)
 
       @executable = executable.dup.freeze
-      @requirement = Gem::Requirement.new(args) unless args.empty?
-      @detector = detector || options.fetch(:detector) { Detector.new }
+
+      unless args.empty?
+        @requirement = Gem::Requirement.new(@filter.requirements(args))
+      end
     end
 
     # @raise [DependencyVersionMismatch] if installed version does not match
@@ -68,6 +73,7 @@ module Cliver
       return true unless @requirement
 
       version_string = @detector.to_proc.call(executable_path)
+      version_string &&= @filter.to_proc.call(version_string)
       (version_string && version_string[PARSABLE_GEM_VERSION]).tap do |version|
         unless version
           raise ArgumentError,
