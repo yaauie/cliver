@@ -51,12 +51,15 @@ module Cliver
     # @raise [DependencyVersionMismatch] if installed version does not match
     # @raise [DependencyNotFound] if no installed version on your path
     def assert!
-      version = installed_version
-      raise(DependencyNotFound, "'#{@executable}' missing.") unless version
+      version = installed_version ||
+                raise(DependencyNotFound,
+                      "required command-line executable '#{@executable}' " +
+                      'could not be found on your PATH.')
 
       if @requirement && !@requirement.satisfied_by?(Gem::Version.new(version))
         raise DependencyVersionMismatch,
-              "expected '#{@executable}' to be #{@requirement}, got #{version}"
+              "expected command-line executable '#{@executable}' to " +
+              "be #{@requirement}, got #{version}"
       end
     end
 
@@ -77,8 +80,8 @@ module Cliver
       (version_string && version_string[PARSABLE_GEM_VERSION]).tap do |version|
         unless version
           raise ArgumentError,
-                "found #{@executable} at '#{executable_path}' " +
-                'but could not detect its version.'
+                "found command-line executable #{@executable} at " +
+                "'#{executable_path}' but could not detect its version."
         end
       end
     end
