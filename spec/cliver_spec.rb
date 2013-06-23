@@ -19,13 +19,13 @@ describe Cliver do
       let(:detector) { proc { RUBY_VERSION.sub('p', '.') } }
       it { should_not be_false }
       it { should match 'Dependency Version Mismatch:' }
-      it { should match "expected 'ruby' to be #{requirements}" }
+      it { should match "expected .+ 'ruby' to be #{requirements}" }
     end
     context 'when dependency is not present' do
       let(:executable) { 'ruxxxby' }
       it { should_not be_false }
       it { should match 'Dependency Not Found:' }
-      it { should match "'#{executable}' missing" }
+      it { should match "'#{executable}' could not be found" }
     end
   end
 end
