@@ -514,18 +514,24 @@ pre-release suffix. See also <a href="http://docs.rubygems.org/read/chapter/16" 
 58
 59
 60
-61</pre>
+61
+62
+63
+64</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cliver/assertion.rb', line 53</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_assert!'>assert!</span>
-  <span class='id identifier rubyid_version'>version</span> <span class='op'>=</span> <span class='id identifier rubyid_installed_version'>installed_version</span>
-  <span class='id identifier rubyid_raise'>raise</span><span class='lparen'>(</span><span class='const'>DependencyNotFound</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>'</span><span class='embexpr_beg'>#{</span><span class='ivar'>@executable</span><span class='rbrace'>}</span><span class='tstring_content'>' missing.</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_version'>version</span>
+  <span class='id identifier rubyid_version'>version</span> <span class='op'>=</span> <span class='id identifier rubyid_installed_version'>installed_version</span> <span class='op'>||</span>
+            <span class='id identifier rubyid_raise'>raise</span><span class='lparen'>(</span><span class='const'>DependencyNotFound</span><span class='comma'>,</span>
+                  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>required command-line executable '</span><span class='embexpr_beg'>#{</span><span class='ivar'>@executable</span><span class='rbrace'>}</span><span class='tstring_content'>' </span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+                  <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>could not be found on your PATH.</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
 
   <span class='kw'>if</span> <span class='ivar'>@requirement</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='ivar'>@requirement</span><span class='period'>.</span><span class='id identifier rubyid_satisfied_by?'>satisfied_by?</span><span class='lparen'>(</span><span class='const'>Gem</span><span class='op'>::</span><span class='const'>Version</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_version'>version</span><span class='rparen'>)</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_raise'>raise</span> <span class='const'>DependencyVersionMismatch</span><span class='comma'>,</span>
-          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>expected '</span><span class='embexpr_beg'>#{</span><span class='ivar'>@executable</span><span class='rbrace'>}</span><span class='tstring_content'>' to be </span><span class='embexpr_beg'>#{</span><span class='ivar'>@requirement</span><span class='rbrace'>}</span><span class='tstring_content'>, got </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_version'>version</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>expected command-line executable '</span><span class='embexpr_beg'>#{</span><span class='ivar'>@executable</span><span class='rbrace'>}</span><span class='tstring_content'>' to </span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>be </span><span class='embexpr_beg'>#{</span><span class='ivar'>@requirement</span><span class='rbrace'>}</span><span class='tstring_content'>, got </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_version'>version</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -607,9 +613,6 @@ detector to get the current version.</p>
       <pre class="lines">
 
 
-70
-71
-72
 73
 74
 75
@@ -621,10 +624,13 @@ detector to get the current version.</p>
 81
 82
 83
-84</pre>
+84
+85
+86
+87</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cliver/assertion.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'lib/cliver/assertion.rb', line 73</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_installed_version'>installed_version</span>
   <span class='id identifier rubyid_executable_path'>executable_path</span> <span class='op'>=</span> <span class='id identifier rubyid_which'>which</span><span class='lparen'>(</span><span class='ivar'>@executable</span><span class='rparen'>)</span>
@@ -636,8 +642,8 @@ detector to get the current version.</p>
   <span class='lparen'>(</span><span class='id identifier rubyid_version_string'>version_string</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_version_string'>version_string</span><span class='lbracket'>[</span><span class='const'>PARSABLE_GEM_VERSION</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_tap'>tap</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_version'>version</span><span class='op'>|</span>
     <span class='kw'>unless</span> <span class='id identifier rubyid_version'>version</span>
       <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span>
-            <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>found </span><span class='embexpr_beg'>#{</span><span class='ivar'>@executable</span><span class='rbrace'>}</span><span class='tstring_content'> at '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_executable_path'>executable_path</span><span class='rbrace'>}</span><span class='tstring_content'>' </span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
-            <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>but could not detect its version.</span><span class='tstring_end'>'</span></span>
+            <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>found command-line executable </span><span class='embexpr_beg'>#{</span><span class='ivar'>@executable</span><span class='rbrace'>}</span><span class='tstring_content'> at </span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+            <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>'</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_executable_path'>executable_path</span><span class='rbrace'>}</span><span class='tstring_content'>' but could not detect its version.</span><span class='tstring_end'>&quot;</span></span>
     <span class='kw'>end</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -651,7 +657,7 @@ detector to get the current version.</p>
 </div>
 
     <div id="footer">
-  Generated on Sat Jun 22 09:42:28 2013 by
+  Generated on Sun Jun 23 09:40:05 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.1 (ruby-1.9.3).
 </div>
