@@ -20,8 +20,8 @@ describe Cliver do
 
   let(:options) do
     {
-      path =>       path,
-      executable => executable,
+      :path =>       path,
+      :executable => executable,
     }
   end
   let(:executables) { version_map.keys }
