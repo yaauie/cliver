@@ -1,5 +1,6 @@
 # encoding: utf-8
 require 'cliver'
+require 'spec_helper'
 
 describe Cliver do
   # The setup. Your test will likeley interact with subject.
