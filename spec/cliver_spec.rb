@@ -20,12 +20,16 @@ describe Cliver do
 
   let(:options) do
     {
-      path:       path,
-      executable: executable,
+      path =>       path,
+      executable => executable,
     }
   end
   let(:executables) { version_map.keys }
-  let(:args) { [executable, *requirement, options] }
+  let(:args) do
+    args = [executable]
+    args.concat Array(requirement)
+    args << options
+  end
 
   let(:path) { 'foo/bar:baz/bingo' }
   let(:executable) { 'doodle' }
