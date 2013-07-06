@@ -5,9 +5,16 @@ module Cliver
   # Default implementation of the detector needed by Cliver::Assertion,
   # which will take anything that #respond_to?(:to_proc)
   class Detector < Struct.new(:command_arg, :version_pattern)
+    # @param detector_argument [#call, Object]
+    #   If detector_argument responds to #call, return it; otherwise attempt
+    #   to create an instance of self.
+    def self.generate(detector_argument)
+      return detector_argument if detector_argument.respond_to?(:call)
+      new(*Array(detector_argument))
+    end
 
     # Default pattern to use when searching {#version_command} output
-    DEFAULT_VERSION_PATTERN = /version [0-9][.0-9a-z]+/i.freeze
+    DEFAULT_VERSION_PATTERN = /(version ?)?[0-9][.0-9a-z]+/i.freeze
 
     # Default command argument to use against the executable to get
     # version output
@@ -16,12 +23,17 @@ module Cliver
     # Forgiving input, allows either argument if only one supplied.
     #
     # @overload initialize(command_arg)
+    #   @param command_arg [String, Array<String>]
     # @overload initialize(version_pattern)
+    #   @param version_pattern [Regexp]
     # @overload initialize(command_arg, version_pattern)
-    # @param command_arg [String]
-    # @param version_pattern [Regexp]
+    #   @param command_arg [String, Array<String>]
+    #   @param version_pattern [Regexp]
     def initialize(*args)
-      command_arg = args.shift if args.first.kind_of?(String)
+      if args.first.kind_of?(String) or args.first.kind_of?(Array)
+        command_arg = Array(args.shift)
+      end
+
       version_pattern = args.shift
       super(command_arg, version_pattern)
     end
@@ -30,7 +42,7 @@ module Cliver
     # @return [String] - should be contain {Gem::Version}-parsable
     #                    version number.
     def detect_version(executable_path)
-      output = `#{version_command(executable_path).shelljoin} 2>&1`
+      output = shell_out_and_capture version_command(executable_path).shelljoin
       output[version_pattern]
     end
 
@@ -61,7 +73,15 @@ module Cliver
     # @param executable_path [String] the executable to test
     # @return [Array<String>]
     def version_command(executable_path)
-      [executable_path, command_arg]
+      [executable_path, *Array(command_arg)]
+    end
+
+    private
+
+    # @api private
+    # A boundary that is useful for testing.
+    def shell_out_and_capture(command)
+      `#{command} 2>&1`
     end
   end
 end

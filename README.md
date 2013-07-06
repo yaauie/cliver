@@ -2,34 +2,66 @@
 
 Sometimes Ruby apps shell out to command-line executables, but there is no
 standard way to ensure those underlying dependencies are met. Users usually
-find out via a nasty stack-trace and whatever wasn't captured on stderr.
+find out via a nasty stack-trace and whatever wasn't captured on stderr, or by
+the odd behavior exposed by a version mismatch.
 
-`Cliver` is a simple gem that provides an easy way to make assertions about
+`Cliver` is a simple gem that provides an easy way to detect and use
 command-line dependencies. Under the covers, it uses [rubygems/requirements][]
 so it supports the version requirements you're used to providing in your
 gemspec.
 
 ## Usage
 
+### Detect and Detect!
+
+The detect methods search your entire path until they find a matching executable
+or run out of places to look.
+
 ```ruby
-Cliver.assert('subl')                      # no version requirements
-Cliver.assert('bzip2', '~> 1.0.6')         # one version requirement
-Cliver.assert('racc', '>= 1.0', '< 1.4.9') # many version requirements
+# no version requirements
+Cliver.detect('subl')
+# => '/Users/yaauie/.bin/subl'
+
+# one version requirement
+Cliver.detect('bzip2', '~> 1.0.6')
+# => '/usr/bin/bzip2'
+
+# many version requirements
+Cliver.detect('racc', '>= 1.0', '< 1.4.9')
+# => '/Users/yaauie/.rbenv/versions/1.9.3-p194/bin/racc'
+
+# dependency not met
+Cliver.detect('racc', '~> 10.4.9')
+# => '/Users/yaauie/.rbenv/versions/1.9.3-p194/bin/racc'
+
+# detect! raises Cliver::Dependency::NotMet exceptions when the dependency
+# cannot be met.
+Cliver.detect!('ruby', '1.8.5')
+#  Cliver::Dependency::VersionMismatch
+#    Could not find an executable ruby that matched the
+#    requirements '1.8.5'. Found versions were {'/usr/bin/ruby'=> '1.8.7'}
+Cliver.detect!('asdfasdf')
+#  Cliver::Dependency::NotFound
+#    Could not find an executable asdfasdf on your path
 ```
 
-If the executable can't be found on your path at all, a 
-`Cliver::Assertion::DependencyNotFound` exception is raised; if the version
-reached does not meet the requirements, a `Cliver::Assertion::DependencyVersionMismatch`
-exception is raised; both inherit from `Cliver::Assertion::DependencyNotMet`
+### Assert
+
+The assert method is useful when you do not have control over how the
+dependency is shelled-out to and require that the first matching executable on
+your path satisfies your version requirements. It is the equivalent of the
+detect! method with `strict: true` option.
 
 ## Advanced Usage:
+
+### Version Detectors
 
 Some programs don't provide nice 'version 1.2.3' strings in their `--version`
 output; `Cliver` lets you provide your own version detector with a pattern.
 
 ```ruby
 Cliver.assert('python', '~> 1.7',
-              detector: Cliver::Detector.new(/(?<=Python )[0-9][.0-9a-z]+/))
+              detector: /(?<=Python )[0-9][.0-9a-z]+/)
 ```
 
 Other programs don't provide a standard `--version`; `Cliver::Detector` also
@@ -37,8 +69,16 @@ allows you to provide your own arg to get the version:
 
 ```ruby
 Cliver.assert('janky', '~> 10.1.alpha',
-              detector: Cliver::Detector.new('--release-version'))
+              detector: '--release-version')
 ```
+
+You can use both custom pattern and custom command by supplying an array:
+
+```ruby
+Cliver.assert('janky', '~> 10.1.alpha',
+              detector: ['--release-version', /.*/])
+```
+
 
 Alternatively, you can supply your own detector (anything that responds to
 `#to_proc`) in the options hash or as a block, so long as it returns a
@@ -55,6 +95,8 @@ And since some programs don't always spit out nice semver-friendly version
 numbers at all, a filter proc can be supplied to clean it up. Note how the
 filter is applied to both your requirements and the executable's output:
 
+### Filters
+
 ```ruby
 Cliver.assert('built-thing', '~> 2013.4r8273',
               filter: proc { |ver| ver.tr('r','.') })
@@ -62,6 +104,17 @@ Cliver.assert('built-thing', '~> 2013.4r8273',
 
 Since `Cliver` uses `Gem::Requirement` for version comparrisons, it obeys all
 the same rules including pre-release semantics.
+
+### Search Path
+
+By default, Cliver uses `ENV['PATH']` as its search path, but you can provide
+your own. If the asterisk symbol (`*`) is included in your string, it is
+replaced `ENV['PATH']`.
+
+```ruby
+Cliver.detect('gadget', path: './bins/:*')
+# => 'Users/yaauie/src/project-a/bins/gadget'
+```
 
 ## Supported Platforms
 
