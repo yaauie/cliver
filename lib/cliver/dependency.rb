@@ -51,7 +51,7 @@ module Cliver
       options = args.last.kind_of?(Hash) ? args.pop : {}
       @detector = Detector::generate(detector || options[:detector])
       @filter = options.fetch(:filter, Filter::IDENTITY).extend(Filter)
-      @path = options.fetch(:path, '*').sub('*', ENV['PATH'])
+      @path = options.fetch(:path, '*')
       @strict = options.fetch(:strict, false)
 
       @executables = Array(executables).dup.freeze
@@ -63,16 +63,15 @@ module Cliver
     # If a block is given, it yields once per found executable, lazily.
     # @yieldparam executable_path [String]
     # @yieldparam version [String]
+    # @yieldreturn [Boolean] - true if search should stop.
     # @return [Hash<String,String>] executable_path, version
     def installed_versions
       return enum_for(:installed_versions) unless block_given?
-      @executables.each_with_object({}) do |executable, memo|
-        find_executables(executable).each do |executable_path|
-          version = detect_version(executable_path)
-          memo[executable_path] = version
 
-          break(2) if yield(executable_path, version)
-        end
+      find_executables.each do |executable_path|
+        version = detect_version(executable_path)
+
+        break(2) if yield(executable_path, version)
       end
     end
 
@@ -90,7 +89,9 @@ module Cliver
     # @return [String] path to an executable that meets the requirements
     # @raise [Cliver::Dependency::NotMet] if no match found
     def detect!
-      installed = installed_versions.each do |path, version|
+      installed = {}
+      installed_versions.each do |path, version|
+        installed[path] = version
         return path if requirement_satisfied_by?(version)
         strict?
       end
@@ -178,20 +179,17 @@ module Cliver
                            "version of the executable at '#{executable_path}'")
     end
 
-    # Windows support
-    # @api private
-    def exts
-      ENV.has_key?('PATHEXT') ? ENV.fetch('PATHEXT').split(';') : ['']
-    end
-
     # Analog of Windows `where` command, or a `which` that finds *all*
     # matching executables on the supplied path.
-    # @param cmd [String] - the command to find
     # @return [Enumerable<String>] - the executables found, lazily.
-    def find_executables(cmd)
-      return enum_for(:find_executables, cmd) unless block_given?
+    def find_executables
+      return enum_for(:find_executables) unless block_given?
 
-      @path.split(File::PATH_SEPARATOR).product(exts).map do |path, ext|
+      exts = ENV.has_key?('PATHEXT') ? ENV.fetch('PATHEXT').split(';') : ['']
+      paths = @path.sub('*', ENV['PATH']).split(File::PATH_SEPARATOR)
+      cmds = strict? ? @executables.first(1) : @executables
+
+      cmds.product(paths, exts).map do |cmd, path, ext|
         exe = File.join(path, "#{cmd}#{ext}")
         yield exe if File.executable?(exe)
       end

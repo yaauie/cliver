@@ -27,7 +27,7 @@ describe Cliver do
   end
   let(:executables) { version_map.keys }
   let(:args) do
-    args = [executable]
+    args = [Array(executable)]
     args.concat Array(requirement)
     args << options
   end
@@ -143,6 +143,60 @@ describe Cliver do
       let(:method) { :detect! }
       it 'should not raise' do
         expect { action }.to raise_exception Cliver::Dependency::NotFound
+      end
+    end
+  end
+
+  context 'with fallback executable names' do
+    let(:executable) { ['primary', 'fallback'] }
+    let(:requirement) { '~> 1.1' }
+    context 'when primary exists after secondary in path' do
+      context 'and primary sufficient' do
+        let(:version_map) do
+          {
+            'baz/bingo/primary' => '1.1',
+            'foo/bar/fallback' => '1.1'
+          }
+        end
+        context '::detect' do
+          let(:method) { :detect }
+          it { should eq 'baz/bingo/primary' }
+        end
+      end
+      context 'and primary insufficient' do
+        let(:version_map) do
+          {
+            'baz/bingo/primary' => '2.1',
+            'foo/bar/fallback' => '1.1'
+          }
+        end
+        context 'the secondary' do
+          context '::detect' do
+            let(:method) { :detect }
+            it { should eq 'foo/bar/fallback' }
+          end
+        end
+      end
+    end
+    context 'when primary does not exist in path' do
+      context 'and sufficient secondary does' do
+        let(:version_map) do
+          {
+            'foo/bar/fallback' => '1.1'
+          }
+        end
+        context '::detect' do
+          let(:method) { :detect }
+          it { should eq 'foo/bar/fallback' }
+        end
+      end
+    end
+
+    context 'neither found' do
+      context '::detect' do
+        let(:version_map) { {} }
+        let(:method) { :detect }
+        it { should be_nil }
       end
     end
   end
