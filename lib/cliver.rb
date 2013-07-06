@@ -41,7 +41,8 @@ module Cliver
   # @return (see Cliver::Dependency#assert!)
   def self.assert(*args, &block)
     options = args.last.kind_of?(Hash) ? args.pop : {}
-    Dependency::new(*args, options.merge(:strict => true), &block).detect!
+    args << options.merge(:strict => true)
+    Dependency::new(*args, &block).detect!
   end
 
   extend self
