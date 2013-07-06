@@ -2,5 +2,5 @@
 
 module Cliver
   # Cliver follows {http://semver.org SemVer}
-  VERSION = '0.1.5'
+  VERSION = '0.2.0.a'
 end
