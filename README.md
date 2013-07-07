@@ -32,7 +32,7 @@ Cliver.detect('racc', '>= 1.0', '< 1.4.9')
 
 # dependency not met
 Cliver.detect('racc', '~> 10.4.9')
-# => '/Users/yaauie/.rbenv/versions/1.9.3-p194/bin/racc'
+# => nil
 
 # detect! raises Cliver::Dependency::NotMet exceptions when the dependency
 # cannot be met.
@@ -68,8 +68,13 @@ Other programs don't provide a standard `--version`; `Cliver::Detector` also
 allows you to provide your own arg to get the version:
 
 ```ruby
+# single-argument command
 Cliver.assert('janky', '~> 10.1.alpha',
               detector: '--release-version')
+
+# multi-argument command
+Cliver.detect('ruby', '~> 1.8.7',
+              detector: [['-e', 'puts RUBY_VERSION']])
 ```
 
 You can use both custom pattern and custom command by supplying an array:
@@ -79,6 +84,13 @@ Cliver.assert('janky', '~> 10.1.alpha',
               detector: ['--release-version', /.*/])
 ```
 
+And even supply multiple arguments in an Array, too:
+
+```ruby
+# multi-argument command
+Cliver.detect('ruby', '~> 1.8.7',
+              detector: ['-e', 'puts RUBY_VERSION'])
+```
 
 Alternatively, you can supply your own detector (anything that responds to
 `#to_proc`) in the options hash or as a block, so long as it returns a

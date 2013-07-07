@@ -22,20 +22,18 @@ module Cliver
 
     # Forgiving input, allows either argument if only one supplied.
     #
-    # @overload initialize(command_arg)
-    #   @param command_arg [String, Array<String>]
+    # @overload initialize(*command_args)
+    #   @param command_args [Array<String>]
     # @overload initialize(version_pattern)
     #   @param version_pattern [Regexp]
-    # @overload initialize(command_arg, version_pattern)
-    #   @param command_arg [String, Array<String>]
+    # @overload initialize(*command_args, version_pattern)
+    #   @param command_args [Array<String>]
     #   @param version_pattern [Regexp]
     def initialize(*args)
-      if args.first.kind_of?(String) or args.first.kind_of?(Array)
-        command_arg = Array(args.shift)
-      end
+      version_pattern = args.pop if args.last.kind_of?(Regexp)
+      command_args = args unless args.empty?
 
-      version_pattern = args.shift
-      super(command_arg, version_pattern)
+      super(command_args, version_pattern)
     end
 
     # @param executable_path [String] - the path to the executable to test
@@ -65,7 +63,7 @@ module Cliver
 
     # The argument to pass to the executable to get current version
     # Defaults to {DEFAULT_COMMAND_ARG}
-    # @return [String]
+    # @return [String, Array<String>]
     def command_arg
       super || DEFAULT_COMMAND_ARG
     end
