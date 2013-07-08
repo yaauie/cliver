@@ -21,7 +21,7 @@ describe Cliver::Detector do
     let(:version_arg) { '--release-version' }
     let(:args) { [version_arg] }
 
-    its(:command_arg) { should eq version_arg }
+    its(:command_arg) { should eq [version_arg] }
     its(:version_pattern) { should eq defaults[:version_pattern] }
   end
 
@@ -38,7 +38,7 @@ describe Cliver::Detector do
     let(:regexp_arg) { /.*/ }
     let(:args) { [version_arg, regexp_arg] }
 
-    its(:command_arg) { should eq version_arg }
+    its(:command_arg) { should eq [version_arg] }
     its(:version_pattern) { should eq regexp_arg }
   end
 end
