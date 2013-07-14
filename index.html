@@ -65,39 +65,89 @@
 
 <p>Sometimes Ruby apps shell out to command-line executables, but there is no
 standard way to ensure those underlying dependencies are met. Users usually
-find out via a nasty stack-trace and whatever wasn&#39;t captured on stderr.</p>
+find out via a nasty stack-trace and whatever wasn&#39;t captured on stderr, or by
+the odd behavior exposed by a version mismatch.</p>
 
-<p><code>Cliver</code> is a simple gem that provides an easy way to make assertions about
+<p><code>Cliver</code> is a simple gem that provides an easy way to detect and use
 command-line dependencies. Under the covers, it uses <a href="https://github.com/rubygems/rubygems/blob/master/lib/rubygems/requirement.rb">rubygems/requirements</a>
 so it supports the version requirements you&#39;re used to providing in your
 gemspec.</p>
 
 <h2>Usage</h2>
 
-<pre class="code ruby"><code class="ruby"><span class='const'>Cliver</span><span class='period'>.</span><span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>subl</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>                      <span class='comment'># no version requirements
-</span><span class='const'>Cliver</span><span class='period'>.</span><span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>bzip2</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>~&gt; 1.0.6</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>         <span class='comment'># one version requirement
-</span><span class='const'>Cliver</span><span class='period'>.</span><span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>racc</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>&gt;= 1.0</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>&lt; 1.4.9</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span> <span class='comment'># many version requirements
+<h3>Detect and Detect!</h3>
+
+<p>The detect methods search your entire path until they find a matching executable
+or run out of places to look.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># no version requirements
+</span><span class='const'>Cliver</span><span class='period'>.</span><span class='id identifier rubyid_detect'>detect</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>subl</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+<span class='comment'># =&gt; '/Users/yaauie/.bin/subl'
+</span>
+<span class='comment'># one version requirement
+</span><span class='const'>Cliver</span><span class='period'>.</span><span class='id identifier rubyid_detect'>detect</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>bzip2</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>~&gt; 1.0.6</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+<span class='comment'># =&gt; '/usr/bin/bzip2'
+</span>
+<span class='comment'># many version requirements
+</span><span class='const'>Cliver</span><span class='period'>.</span><span class='id identifier rubyid_detect'>detect</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>racc</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>&gt;= 1.0</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>&lt; 1.4.9</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+<span class='comment'># =&gt; '/Users/yaauie/.rbenv/versions/1.9.3-p194/bin/racc'
+</span>
+<span class='comment'># dependency not met
+</span><span class='const'>Cliver</span><span class='period'>.</span><span class='id identifier rubyid_detect'>detect</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>racc</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>~&gt; 10.4.9</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+<span class='comment'># =&gt; nil
+</span>
+<span class='comment'># detect! raises Cliver::Dependency::NotMet exceptions when the dependency
+</span><span class='comment'># cannot be met.
+</span><span class='const'>Cliver</span><span class='period'>.</span><span class='id identifier rubyid_detect!'>detect!</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>ruby</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>1.8.5</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+<span class='comment'>#  Cliver::Dependency::VersionMismatch
+</span><span class='comment'>#    Could not find an executable ruby that matched the
+</span><span class='comment'>#    requirements '1.8.5'. Found versions were {'/usr/bin/ruby'=&gt; '1.8.7'}
+</span><span class='const'>Cliver</span><span class='period'>.</span><span class='id identifier rubyid_detect!'>detect!</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>asdfasdf</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+<span class='comment'>#  Cliver::Dependency::NotFound
+</span><span class='comment'>#    Could not find an executable asdfasdf on your path
 </span></code></pre>
 
-<p>If the executable can&#39;t be found on your path at all, a 
-<code>Cliver::Assertion::DependencyNotFound</code> exception is raised; if the version
-reached does not meet the requirements, a <code>Cliver::Assertion::DependencyVersionMismatch</code>
-exception is raised; both inherit from <code>Cliver::Assertion::DependencyNotMet</code></p>
+<h3>Assert</h3>
+
+<p>The assert method is useful when you do not have control over how the
+dependency is shelled-out to and require that the first matching executable on
+your path satisfies your version requirements. It is the equivalent of the
+detect! method with <code>strict: true</code> option.</p>
 
 <h2>Advanced Usage:</h2>
+
+<h3>Version Detectors</h3>
 
 <p>Some programs don&#39;t provide nice &#39;version 1.2.3&#39; strings in their <code>--version</code>
 output; <code>Cliver</code> lets you provide your own version detector with a pattern.</p>
 
 <pre class="code ruby"><code class="ruby"><span class='const'>Cliver</span><span class='period'>.</span><span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>python</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>~&gt; 1.7</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
-              <span class='label'>detector:</span> <span class='const'>Cliver</span><span class='op'>::</span><span class='const'>Detector</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>(?&lt;=Python )[0-9][.0-9a-z]+</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+              <span class='label'>detector:</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>(?&lt;=Python )[0-9][.0-9a-z]+</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span>
 </code></pre>
 
 <p>Other programs don&#39;t provide a standard <code>--version</code>; <code>Cliver::Detector</code> also
 allows you to provide your own arg to get the version:</p>
 
+<pre class="code ruby"><code class="ruby"><span class='comment'># single-argument command
+</span><span class='const'>Cliver</span><span class='period'>.</span><span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>janky</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>~&gt; 10.1.alpha</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
+              <span class='label'>detector:</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>--release-version</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+
+<span class='comment'># multi-argument command
+</span><span class='const'>Cliver</span><span class='period'>.</span><span class='id identifier rubyid_detect'>detect</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>ruby</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>~&gt; 1.8.7</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
+              <span class='label'>detector:</span> <span class='lbracket'>[</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>-e</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>puts RUBY_VERSION</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+</code></pre>
+
+<p>You can use both custom pattern and custom command by supplying an array:</p>
+
 <pre class="code ruby"><code class="ruby"><span class='const'>Cliver</span><span class='period'>.</span><span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>janky</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>~&gt; 10.1.alpha</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
-              <span class='label'>detector:</span> <span class='const'>Cliver</span><span class='op'>::</span><span class='const'>Detector</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>--release-version</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+              <span class='label'>detector:</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>--release-version</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>.*</span><span class='regexp_end'>/</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+</code></pre>
+
+<p>And even supply multiple arguments in an Array, too:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># multi-argument command
+</span><span class='const'>Cliver</span><span class='period'>.</span><span class='id identifier rubyid_detect'>detect</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>ruby</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>~&gt; 1.8.7</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
+              <span class='label'>detector:</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>-e</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>puts RUBY_VERSION</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
 </code></pre>
 
 <p>Alternatively, you can supply your own detector (anything that responds to
@@ -114,12 +164,24 @@ version requirements are given, a descriptive <code>ArgumentError</code> is rais
 numbers at all, a filter proc can be supplied to clean it up. Note how the
 filter is applied to both your requirements and the executable&#39;s output:</p>
 
+<h3>Filters</h3>
+
 <pre class="code ruby"><code class="ruby"><span class='const'>Cliver</span><span class='period'>.</span><span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>built-thing</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>~&gt; 2013.4r8273</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
               <span class='label'>filter:</span> <span class='id identifier rubyid_proc'>proc</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_ver'>ver</span><span class='op'>|</span> <span class='id identifier rubyid_ver'>ver</span><span class='period'>.</span><span class='id identifier rubyid_tr'>tr</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>r</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>.</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
 </code></pre>
 
 <p>Since <code>Cliver</code> uses <code>Gem::Requirement</code> for version comparrisons, it obeys all
 the same rules including pre-release semantics.</p>
+
+<h3>Search Path</h3>
+
+<p>By default, Cliver uses <code>ENV[&#39;PATH&#39;]</code> as its search path, but you can provide
+your own. If the asterisk symbol (<code>*</code>) is included in your string, it is
+replaced <code>ENV[&#39;PATH&#39;]</code>.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>Cliver</span><span class='period'>.</span><span class='id identifier rubyid_detect'>detect</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>gadget</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>./bins/:*</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+<span class='comment'># =&gt; 'Users/yaauie/src/project-a/bins/gadget'
+</span></code></pre>
 
 <h2>Supported Platforms</h2>
 
@@ -138,7 +200,7 @@ but is not available as a build target in [travis_ci][].</p>
 </div></div>
 
     <div id="footer">
-  Generated on Sun Jun 23 09:40:05 2013 by
+  Generated on Sun Jul 14 18:53:51 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.1 (ruby-1.9.3).
 </div>

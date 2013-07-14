@@ -136,7 +136,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#requirements-instance_method" title="#requirements (instance method)">- (Object) <strong>requirements</strong>(requirements) </a>
+      <a href="#apply-instance_method" title="#apply (instance method)">- (String) <strong>apply</strong>(version) </a>
     
 
     
@@ -150,7 +150,33 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Apply to some input.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#requirements-instance_method" title="#requirements (instance method)">- (Array&lt;String&gt;) <strong>requirements</strong>(requirements) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Apply to a list of requirements.</p>
+</div></span>
   
 </li>
 
@@ -165,37 +191,145 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="requirements-instance_method">
+  <h3 class="signature first" id="apply-instance_method">
   
-    - (<tt>Object</tt>) <strong>requirements</strong>(requirements) 
-  
-
+    - (<tt>String</tt>) <strong>apply</strong>(version) 
   
 
   
-</h3><table class="source_code">
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Apply to some input</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>version</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-9
-10
-11
+24
+25
+26</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cliver/filter.rb', line 24</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_apply'>apply</span><span class='lparen'>(</span><span class='id identifier rubyid_version'>version</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_to_proc'>to_proc</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_version'>version</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="requirements-instance_method">
+  
+    - (<tt>Array&lt;String&gt;</tt>) <strong>requirements</strong>(requirements) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Apply to a list of requirements</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>requirements</span>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
 12
 13
 14
 15
-16</pre>
+16
+17
+18
+19</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cliver/filter.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'lib/cliver/filter.rb', line 12</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_requirements'>requirements</span><span class='lparen'>(</span><span class='id identifier rubyid_requirements'>requirements</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_requirements'>requirements</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_requirement'>requirement</span><span class='op'>|</span>
     <span class='id identifier rubyid_req_parts'>req_parts</span> <span class='op'>=</span> <span class='id identifier rubyid_requirement'>requirement</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\b(?=\d)</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='int'>2</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_version'>version</span> <span class='op'>=</span> <span class='id identifier rubyid_req_parts'>req_parts</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span>
-    <span class='id identifier rubyid_version'>version</span><span class='period'>.</span><span class='id identifier rubyid_replace'>replace</span> <span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_version'>version</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_version'>version</span><span class='period'>.</span><span class='id identifier rubyid_replace'>replace</span> <span class='id identifier rubyid_apply'>apply</span><span class='lparen'>(</span><span class='id identifier rubyid_version'>version</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_req_parts'>req_parts</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -209,7 +343,7 @@
 </div>
 
     <div id="footer">
-  Generated on Sun Jun 23 09:40:05 2013 by
+  Generated on Sun Jul 14 18:53:52 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.1 (ruby-1.9.3).
 </div>

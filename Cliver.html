@@ -88,7 +88,7 @@
   
     <dt class="r1 last">Defined in:</dt>
     <dd class="r1 last">lib/cliver.rb<span class="defines">,<br />
-  lib/cliver/which.rb,<br /> lib/cliver/filter.rb,<br /> lib/cliver/version.rb,<br /> lib/cliver/detector.rb,<br /> lib/cliver/assertion.rb,<br /> lib/cliver/which/posix.rb,<br /> lib/cliver/which/windows.rb</span>
+  lib/cliver/filter.rb,<br /> lib/cliver/version.rb,<br /> lib/cliver/detector.rb,<br /> lib/cliver/dependency.rb</span>
 </dd>
   
 </dl>
@@ -110,11 +110,11 @@ executables.</p>
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Cliver/Filter.html" title="Cliver::Filter (module)">Filter</a></span>, <span class='object_link'><a href="Cliver/Which.html" title="Cliver::Which (module)">Which</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Cliver/Filter.html" title="Cliver::Filter (module)">Filter</a></span>
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Cliver/Assertion.html" title="Cliver::Assertion (class)">Assertion</a></span>, <span class='object_link'><a href="Cliver/Detector.html" title="Cliver::Detector (class)">Detector</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Cliver/Dependency.html" title="Cliver::Dependency (class)">Dependency</a></span>, <span class='object_link'><a href="Cliver/Detector.html" title="Cliver::Detector (class)">Detector</a></span>
     
   
 </p>
@@ -137,7 +137,7 @@ executables.</p>
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>0.1.5</span><span class='tstring_end'>'</span></span></pre></dd>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>0.2.0</span><span class='tstring_end'>'</span></span></pre></dd>
       
     </dl>
   
@@ -159,7 +159,7 @@ executables.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Assertion) <strong>initialize</strong>(executable, *requirements, options = {}) </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Dependency) <strong>initialize</strong>(executables, *requirements, options = {}) {|executable_path| ... }</a>
     
 
     
@@ -173,7 +173,61 @@ executables.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>A legacy interface for detect with the option `strict: true`, ensures
+that the first executable on your path matches the requirements.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Dependency) <strong>initialize</strong>(executables, *requirements, options = {}) {|executable_path| ... }</a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>A non-raising variant of detect!, simply returns false if dependency
+cannot be found.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Dependency) <strong>initialize</strong>(executables, *requirements, options = {}) {|executable_path| ... }</a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The primary interface for the Cliver gem allows detection of an executable
+on your path that matches a version requirement, or raise an appropriate
+exception to make resolution simple and straight-forward.</p>
+</div></span>
   
 </li>
 
@@ -190,7 +244,7 @@ executables.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Assertion) <strong>initialize</strong>(executable, *requirements, options = {}) </a>
+      <a href="#dependency_unmet%3F-instance_method" title="#dependency_unmet? (instance method)">- (False, String) <strong>dependency_unmet?</strong>(*args, &amp;block) </a>
     
 
     
@@ -223,7 +277,7 @@ executables.</p>
       <div class="method_details first">
   <h3 class="signature first" id="assert-class_method">
   
-    - (<tt><span class='object_link'><a href="Cliver/Assertion.html" title="Cliver::Assertion (class)">Assertion</a></span></tt>) <strong>initialize</strong>(executable, *requirements, options = {}) 
+    - (<tt><span class='object_link'><a href="Cliver/Dependency.html" title="Cliver::Dependency (class)">Dependency</a></span></tt>) <strong>initialize</strong>(executables, *requirements, options = {}) {|executable_path| ... }
   
 
   
@@ -232,23 +286,37 @@ executables.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
+<p>A legacy interface for detect with the option `strict: true`, ensures
+that the first executable on your path matches the requirements.</p>
+
 
   </div>
 </div>
 <div class="tags">
   
-  
-<p class="tag_title">Parameters:</p>
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
 <ul class="param">
   
     <li>
       
-        <span class='name'>executable</span>
+        <span class='name'>executables</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>String</tt>, <tt>Array&lt;String&gt;</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>api-compatible executable names e.g, [‘python2’,‘python’]</p>
+</div>
       
     </li>
   
@@ -285,48 +353,175 @@ pre-release suffix. See also <a href="http://docs.rubygems.org/read/chapter/16" 
         <span class='type'>(<tt>Hash&lt;Symbol,Object&gt;</tt>)</span>
       
       
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
       
     </li>
   
 </ul>
 
-<p class="tag_title">Raises:</p>
-<ul class="raise">
   
-    <li>
+    
+    
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>options</tt>):</p>
+    <ul class="option">
       
+        <li>
+          <span class="name">:detector</span>
+          <span class="type">(<tt><span class='object_link'><a href="Cliver/Detector.html" title="Cliver::Detector (class)">Cliver::Detector</a></span></tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>Detector.new</tt>
+            
+          </span>
+          
+        </li>
       
-        <span class='type'>(<tt>DependencyVersionMismatch</tt>)</span>
+        <li>
+          <span class="name">:detector</span>
+          <span class="type">(<tt>#to_proc</tt>, <tt>Object</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>see Detector::generate</tt>
+            
+          </span>
+          
+        </li>
       
+        <li>
+          <span class="name">:filter</span>
+          <span class="type">(<tt>#to_proc</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>{Cliver::Filter::IDENTITY}</tt>
+            
+          </span>
+          
+        </li>
       
-      
-        &mdash;
-        <div class='inline'>
-<p>if installed version does not match</p>
+        <li>
+          <span class="name">:strict</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>false</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>true -  fail if first match on path fails</p>
+
+<pre class="code ruby"><code class="ruby">to meet version requirements.
+This is used for Cliver::assert.</code></pre>
+
+<p>false - continue looking on path until a</p>
+
+<pre class="code ruby"><code class="ruby">sufficient version is found.</code></pre>
 </div>
+          
+        </li>
       
-    </li>
+        <li>
+          <span class="name">:path</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>'*'</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>the path on which to search for executables. If an asterisk (`*`) is
+included in the supplied string, it is replaced with `<a
+href="http://'PATH'">ENV</a>`</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Yield Parameters:</p>
+<ul class="yieldparam">
   
     <li>
       
+        <span class='name'>executable_path</span>
       
-        <span class='type'>(<tt>DependencyNotFound</tt>)</span>
+      
+        <span class='type'>(<tt>String</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>if no installed version on your path</p>
+<p>(see Detector#detect_version)</p>
 </div>
       
     </li>
   
 </ul>
+<p class="tag_title">Yield Returns:</p>
+<ul class="yieldreturn">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>containing a version that, once filtered, can be used for comparrison.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a customizable set of options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+
 
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><span class='object_link'><a href="Cliver/Assertion.html" title="Cliver::Assertion (class)">Assertion</a></span></li>
+      <li><span class='object_link'><a href="Cliver/Dependency.html" title="Cliver::Dependency (class)">Dependency</a></span></li>
     
   </ul>
 
@@ -336,15 +531,566 @@ pre-release suffix. See also <a href="http://docs.rubygems.org/read/chapter/16" 
       <pre class="lines">
 
 
-16
-17
-18</pre>
+42
+43
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cliver.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/cliver.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-  <span class='const'>Assertion</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_assert!'>assert!</span>
+  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_pop'>pop</span> <span class='op'>:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='id identifier rubyid_args'>args</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='symbol'>:strict</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='const'>Dependency</span><span class='op'>::</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_detect!'>detect!</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="detect-class_method">
+  
+    - (<tt><span class='object_link'><a href="Cliver/Dependency.html" title="Cliver::Dependency (class)">Dependency</a></span></tt>) <strong>initialize</strong>(executables, *requirements, options = {}) {|executable_path| ... }
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>A non-raising variant of detect!, simply returns false if dependency
+cannot be found.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>executables</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>api-compatible executable names e.g, [‘python2’,‘python’]</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>requirements</span>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>, <tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>splat of strings whose elements follow the pattern</p>
+
+<pre class="code ruby"><code class="ruby">[&lt;operator&gt;] &lt;version&gt;</code></pre>
+
+<p>Where &lt;operator&gt; is optional (default ‘=”) and in the set</p>
+
+<pre class="code ruby"><code class="ruby">'=', '!=', '&gt;', '&lt;', '&gt;=', '&lt;=', or '~&gt;'</code></pre>
+
+<p>And &lt;version&gt; is dot-separated integers with optional alphanumeric
+pre-release suffix. See also <a href="http://docs.rubygems.org/read/chapter/16" target="_parent" title="Specifying Versions">Specifying Versions</a></p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;Symbol,Object&gt;</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:detector</span>
+          <span class="type">(<tt><span class='object_link'><a href="Cliver/Detector.html" title="Cliver::Detector (class)">Cliver::Detector</a></span></tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>Detector.new</tt>
+            
+          </span>
+          
+        </li>
+      
+        <li>
+          <span class="name">:detector</span>
+          <span class="type">(<tt>#to_proc</tt>, <tt>Object</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>see Detector::generate</tt>
+            
+          </span>
+          
+        </li>
+      
+        <li>
+          <span class="name">:filter</span>
+          <span class="type">(<tt>#to_proc</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>{Cliver::Filter::IDENTITY}</tt>
+            
+          </span>
+          
+        </li>
+      
+        <li>
+          <span class="name">:strict</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>false</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>true -  fail if first match on path fails</p>
+
+<pre class="code ruby"><code class="ruby">to meet version requirements.
+This is used for Cliver::assert.</code></pre>
+
+<p>false - continue looking on path until a</p>
+
+<pre class="code ruby"><code class="ruby">sufficient version is found.</code></pre>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:path</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>'*'</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>the path on which to search for executables. If an asterisk (`*`) is
+included in the supplied string, it is replaced with `<a
+href="http://'PATH'">ENV</a>`</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Yield Parameters:</p>
+<ul class="yieldparam">
+  
+    <li>
+      
+        <span class='name'>executable_path</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>(see Detector#detect_version)</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Yield Returns:</p>
+<ul class="yieldreturn">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>containing a version that, once filtered, can be used for comparrison.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>see #<span class='object_link'><a href="#detect-class_method" title="Cliver.detect (method)">detect</a></span>!</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>or nil if no match found.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><span class='object_link'><a href="Cliver/Dependency.html" title="Cliver::Dependency (class)">Dependency</a></span></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+30
+31
+32</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cliver.rb', line 30</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_detect'>detect</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='const'>Dependency</span><span class='op'>::</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_detect'>detect</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="detect!-class_method">
+  
+    - (<tt><span class='object_link'><a href="Cliver/Dependency.html" title="Cliver::Dependency (class)">Dependency</a></span></tt>) <strong>initialize</strong>(executables, *requirements, options = {}) {|executable_path| ... }
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>The primary interface for the Cliver gem allows detection of an executable
+on your path that matches a version requirement, or raise an appropriate
+exception to make resolution simple and straight-forward.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>executables</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>api-compatible executable names e.g, [‘python2’,‘python’]</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>requirements</span>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>, <tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>splat of strings whose elements follow the pattern</p>
+
+<pre class="code ruby"><code class="ruby">[&lt;operator&gt;] &lt;version&gt;</code></pre>
+
+<p>Where &lt;operator&gt; is optional (default ‘=”) and in the set</p>
+
+<pre class="code ruby"><code class="ruby">'=', '!=', '&gt;', '&lt;', '&gt;=', '&lt;=', or '~&gt;'</code></pre>
+
+<p>And &lt;version&gt; is dot-separated integers with optional alphanumeric
+pre-release suffix. See also <a href="http://docs.rubygems.org/read/chapter/16" target="_parent" title="Specifying Versions">Specifying Versions</a></p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;Symbol,Object&gt;</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:detector</span>
+          <span class="type">(<tt><span class='object_link'><a href="Cliver/Detector.html" title="Cliver::Detector (class)">Cliver::Detector</a></span></tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>Detector.new</tt>
+            
+          </span>
+          
+        </li>
+      
+        <li>
+          <span class="name">:detector</span>
+          <span class="type">(<tt>#to_proc</tt>, <tt>Object</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>see Detector::generate</tt>
+            
+          </span>
+          
+        </li>
+      
+        <li>
+          <span class="name">:filter</span>
+          <span class="type">(<tt>#to_proc</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>{Cliver::Filter::IDENTITY}</tt>
+            
+          </span>
+          
+        </li>
+      
+        <li>
+          <span class="name">:strict</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>false</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>true -  fail if first match on path fails</p>
+
+<pre class="code ruby"><code class="ruby">to meet version requirements.
+This is used for Cliver::assert.</code></pre>
+
+<p>false - continue looking on path until a</p>
+
+<pre class="code ruby"><code class="ruby">sufficient version is found.</code></pre>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:path</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>'*'</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>the path on which to search for executables. If an asterisk (`*`) is
+included in the supplied string, it is replaced with `<a
+href="http://'PATH'">ENV</a>`</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Yield Parameters:</p>
+<ul class="yieldparam">
+  
+    <li>
+      
+        <span class='name'>executable_path</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>(see Detector#detect_version)</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Yield Returns:</p>
+<ul class="yieldreturn">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>containing a version that, once filtered, can be used for comparrison.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>path to an executable that meets the requirements</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Cliver/Dependency.html#NotMet-constant" title="Cliver::Dependency::NotMet (constant)">Cliver::Dependency::NotMet</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>if no match found</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><span class='object_link'><a href="Cliver/Dependency.html" title="Cliver::Dependency (class)">Dependency</a></span></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+19
+20
+21</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cliver.rb', line 19</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_detect!'>detect!</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='const'>Dependency</span><span class='op'>::</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_detect!'>detect!</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -360,7 +1106,7 @@ pre-release suffix. See also <a href="http://docs.rubygems.org/read/chapter/16" 
       <div class="method_details first">
   <h3 class="signature first" id="dependency_unmet?-instance_method">
   
-    - (<tt><span class='object_link'><a href="Cliver/Assertion.html" title="Cliver::Assertion (class)">Assertion</a></span></tt>) <strong>initialize</strong>(executable, *requirements, options = {}) 
+    - (<tt>False</tt>, <tt>String</tt>) <strong>dependency_unmet?</strong>(*args, &amp;block) 
   
 
   
@@ -376,59 +1122,6 @@ pre-release suffix. See also <a href="http://docs.rubygems.org/read/chapter/16" 
 </div>
 <div class="tags">
   
-  
-<p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>executable</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>requirements</span>
-      
-      
-        <span class='type'>(<tt>Array&lt;String&gt;</tt>, <tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>splat of strings whose elements follow the pattern</p>
-
-<pre class="code ruby"><code class="ruby">[&lt;operator&gt;] &lt;version&gt;</code></pre>
-
-<p>Where &lt;operator&gt; is optional (default ‘=”) and in the set</p>
-
-<pre class="code ruby"><code class="ruby">'=', '!=', '&gt;', '&lt;', '&gt;=', '&lt;=', or '~&gt;'</code></pre>
-
-<p>And &lt;version&gt; is dot-separated integers with optional alphanumeric
-pre-release suffix. See also <a href="http://docs.rubygems.org/read/chapter/16" target="_parent" title="Specifying Versions">Specifying Versions</a></p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>options</span>
-      
-      
-        <span class='type'>(<tt>Hash&lt;Symbol,Object&gt;</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
 <p class="tag_title">Returns:</p>
 <ul class="return">
   
@@ -461,22 +1154,22 @@ pre-release suffix. See also <a href="http://docs.rubygems.org/read/chapter/16" 
       <pre class="lines">
 
 
-28
-29
-30
-31
-32
-33
-34
-35</pre>
+56
+57
+58
+59
+60
+61
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cliver.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'lib/cliver.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dependency_unmet?'>dependency_unmet?</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='const'>Cliver</span><span class='period'>.</span><span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='kw'>false</span>
-<span class='kw'>rescue</span> <span class='const'>Assertion</span><span class='op'>::</span><span class='const'>DependencyNotMet</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_error'>error</span>
+<span class='kw'>rescue</span> <span class='const'>Dependency</span><span class='op'>::</span><span class='const'>NotMet</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_error'>error</span>
   <span class='comment'># Cliver::Assertion::VersionMismatch -&gt; 'Version Mismatch'
 </span>  <span class='id identifier rubyid_reason'>reason</span> <span class='op'>=</span> <span class='id identifier rubyid_error'>error</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>:</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>([a-z])([A-Z])</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>\\1 \\2</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_reason'>reason</span><span class='rbrace'>}</span><span class='tstring_content'>: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_error'>error</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -491,7 +1184,7 @@ pre-release suffix. See also <a href="http://docs.rubygems.org/read/chapter/16" 
 </div>
 
     <div id="footer">
-  Generated on Sun Jun 23 09:40:05 2013 by
+  Generated on Sun Jul 14 18:53:52 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.1 (ruby-1.9.3).
 </div>

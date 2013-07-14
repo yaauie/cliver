@@ -1,0 +1,853 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: Cliver::Dependency
+  
+    &mdash; Documentation by YARD 0.8.6.1
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../';
+  framesUrl = "../frames.html#!" + escape(window.location.href);
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (D)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Cliver.html" title="Cliver (module)">Cliver</a></span></span>
+     &raquo; 
+    <span class="title">Dependency</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="../method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="../file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Class: Cliver::Dependency
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Cliver::Dependency</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/cliver/dependency.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>This is how a dependency is specified.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="NotMet-constant" class="">NotMet =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>An exception class raised when assertion is not met</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='const'>Class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>ArgumentError</span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="VersionMismatch-constant" class="">VersionMismatch =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>An exception that is raised when executable present, but no version that
+matches the requirements is present.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='const'>Class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>Dependency</span><span class='op'>::</span><span class='const'>NotMet</span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="NotFound-constant" class="">NotFound =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>An exception that is raised when executable is not present at all.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='const'>Class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>Dependency</span><span class='op'>::</span><span class='const'>NotMet</span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="PARSABLE_GEM_VERSION-constant" class="">PARSABLE_GEM_VERSION =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>A pattern for extracting a Gem::Version-parsable version</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>[0-9]+(.[0-9]+){0,4}(.[a-zA-Z0-9]+)?</span><span class='regexp_end'>/</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#detect-instance_method" title="#detect (instance method)">- (see #detect!) <strong>detect</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The non-raise variant of <span class='object_link'><a href="#detect%21-instance_method" title="Cliver::Dependency#detect! (method)">#detect!</a></span>.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#detect%21-instance_method" title="#detect! (instance method)">- (String) <strong>detect!</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Detects an installed version of the executable that matches the
+requirements.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Dependency) <strong>initialize</strong>(executables, *requirements, options = {}) {|executable_path| ... }</a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>A new instance of Dependency.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#installed_versions-instance_method" title="#installed_versions (instance method)">- (Hash&lt;String,String&gt;) <strong>installed_versions</strong> {|executable_path, version| ... }</a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Get all the installed versions of the api-compatible executables.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="Cliver::Dependency (class)">Dependency</a></span></tt>) <strong>initialize</strong>(executables, *requirements, options = {}) {|executable_path| ... }
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>A new instance of Dependency</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>executables</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>api-compatible executable names e.g, [‘python2’,‘python’]</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>requirements</span>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>, <tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>splat of strings whose elements follow the pattern</p>
+
+<pre class="code ruby"><code class="ruby">[&lt;operator&gt;] &lt;version&gt;</code></pre>
+
+<p>Where &lt;operator&gt; is optional (default ‘=”) and in the set</p>
+
+<pre class="code ruby"><code class="ruby">'=', '!=', '&gt;', '&lt;', '&gt;=', '&lt;=', or '~&gt;'</code></pre>
+
+<p>And &lt;version&gt; is dot-separated integers with optional alphanumeric
+pre-release suffix. See also <a href="http://docs.rubygems.org/read/chapter/16" target="_parent" title="Specifying Versions">Specifying Versions</a></p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;Symbol,Object&gt;</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:detector</span>
+          <span class="type">(<tt><span class='object_link'><a href="Detector.html" title="Cliver::Detector (class)">Cliver::Detector</a></span></tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>Detector.new</tt>
+            
+          </span>
+          
+        </li>
+      
+        <li>
+          <span class="name">:detector</span>
+          <span class="type">(<tt>#to_proc</tt>, <tt>Object</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>see Detector::generate</tt>
+            
+          </span>
+          
+        </li>
+      
+        <li>
+          <span class="name">:filter</span>
+          <span class="type">(<tt>#to_proc</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>{Cliver::Filter::IDENTITY}</tt>
+            
+          </span>
+          
+        </li>
+      
+        <li>
+          <span class="name">:strict</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>false</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>true -  fail if first match on path fails</p>
+
+<pre class="code ruby"><code class="ruby">to meet version requirements.
+This is used for Cliver::assert.</code></pre>
+
+<p>false - continue looking on path until a</p>
+
+<pre class="code ruby"><code class="ruby">sufficient version is found.</code></pre>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:path</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>'*'</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>the path on which to search for executables. If an asterisk (`*`) is
+included in the supplied string, it is replaced with `<a
+href="http://'PATH'">ENV</a>`</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Yield Parameters:</p>
+<ul class="yieldparam">
+  
+    <li>
+      
+        <span class='name'>executable_path</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>(see Detector#detect_version)</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Yield Returns:</p>
+<ul class="yieldreturn">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>containing a version that, once filtered, can be used for comparrison.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cliver/dependency.rb', line 50</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_executables'>executables</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_detector'>detector</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_pop'>pop</span> <span class='op'>:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='ivar'>@detector</span> <span class='op'>=</span> <span class='const'>Detector</span><span class='op'>::</span><span class='id identifier rubyid_generate'>generate</span><span class='lparen'>(</span><span class='id identifier rubyid_detector'>detector</span> <span class='op'>||</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:detector</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='ivar'>@filter</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='symbol'>:filter</span><span class='comma'>,</span> <span class='const'>Filter</span><span class='op'>::</span><span class='const'>IDENTITY</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_extend'>extend</span><span class='lparen'>(</span><span class='const'>Filter</span><span class='rparen'>)</span>
+  <span class='ivar'>@path</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='symbol'>:path</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>*</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+  <span class='ivar'>@strict</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='symbol'>:strict</span><span class='comma'>,</span> <span class='kw'>false</span><span class='rparen'>)</span>
+
+  <span class='ivar'>@executables</span> <span class='op'>=</span> <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_executables'>executables</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span>
+
+  <span class='ivar'>@requirement</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span> <span class='kw'>unless</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="detect-instance_method">
+  
+    - (<tt>see #<span class='object_link'><a href="../Cliver.html#detect-class_method" title="Cliver.detect (method)">detect</a></span>!</tt>) <strong>detect</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>The non-raise variant of <span class='object_link'><a href="#detect%21-instance_method" title="Cliver::Dependency#detect! (method)">#detect!</a></span></p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>see #<span class='object_link'><a href="../Cliver.html#detect-class_method" title="Cliver.detect (method)">detect</a></span>!</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>or nil if no match found.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+81
+82
+83
+84
+85</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cliver/dependency.rb', line 81</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_detect'>detect</span>
+  <span class='id identifier rubyid_detect!'>detect!</span>
+<span class='kw'>rescue</span> <span class='const'>Dependency</span><span class='op'>::</span><span class='const'>NotMet</span>
+  <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="detect!-instance_method">
+  
+    - (<tt>String</tt>) <strong>detect!</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Detects an installed version of the executable that matches the
+requirements.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>path to an executable that meets the requirements</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="#NotMet-constant" title="Cliver::Dependency::NotMet (constant)">Cliver::Dependency::NotMet</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>if no match found</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cliver/dependency.rb', line 91</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_detect!'>detect!</span>
+  <span class='id identifier rubyid_installed'>installed</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='id identifier rubyid_installed_versions'>installed_versions</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_version'>version</span><span class='op'>|</span>
+    <span class='id identifier rubyid_installed'>installed</span><span class='lbracket'>[</span><span class='id identifier rubyid_path'>path</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_version'>version</span>
+    <span class='kw'>return</span> <span class='id identifier rubyid_path'>path</span> <span class='kw'>if</span> <span class='id identifier rubyid_requirement_satisfied_by?'>requirement_satisfied_by?</span><span class='lparen'>(</span><span class='id identifier rubyid_version'>version</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_strict?'>strict?</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># dependency not met. raise the appropriate error.
+</span>  <span class='id identifier rubyid_raise_not_found!'>raise_not_found!</span> <span class='kw'>if</span> <span class='id identifier rubyid_installed'>installed</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+  <span class='id identifier rubyid_raise_version_mismatch!'>raise_version_mismatch!</span><span class='lparen'>(</span><span class='id identifier rubyid_installed'>installed</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="installed_versions-instance_method">
+  
+    - (<tt>Hash&lt;String,String&gt;</tt>) <strong>installed_versions</strong> {|executable_path, version| ... }
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get all the installed versions of the api-compatible executables. If a
+block is given, it yields once per found executable, lazily.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Yield Parameters:</p>
+<ul class="yieldparam">
+  
+    <li>
+      
+        <span class='name'>executable_path</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>version</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Yield Returns:</p>
+<ul class="yieldreturn">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><ul><li>
+<p>true if search should stop.</p>
+</li></ul>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash&lt;String,String&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>executable_path, version</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+68
+69
+70
+71
+72
+73
+74
+75
+76</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cliver/dependency.rb', line 68</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_installed_versions'>installed_versions</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_enum_for'>enum_for</span><span class='lparen'>(</span><span class='symbol'>:installed_versions</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
+
+  <span class='id identifier rubyid_find_executables'>find_executables</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_executable_path'>executable_path</span><span class='op'>|</span>
+    <span class='id identifier rubyid_version'>version</span> <span class='op'>=</span> <span class='id identifier rubyid_detect_version'>detect_version</span><span class='lparen'>(</span><span class='id identifier rubyid_executable_path'>executable_path</span><span class='rparen'>)</span>
+
+    <span class='kw'>break</span><span class='lparen'>(</span><span class='int'>2</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='kw'>yield</span><span class='lparen'>(</span><span class='id identifier rubyid_executable_path'>executable_path</span><span class='comma'>,</span> <span class='id identifier rubyid_version'>version</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Sun Jul 14 18:53:52 2013 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.6.1 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>
