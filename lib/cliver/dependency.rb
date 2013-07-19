@@ -124,20 +124,18 @@ module Cliver
     # @api private
     # @raise [Cliver::Dependency::NotFound] with appropriate error message
     def raise_not_found!
-      raise Dependency::NotFound.new <<-EOERR
-        Could not find an executable #{@executables} on your path.
-      EOERR
+      raise Dependency::NotFound.new(
+        "Could not find an executable #{@executables} on your path.")
     end
 
     # @api private
     # @raise [Cliver::Dependency::VersionMismatch] with appropriate error message
     # @param installed [Hash<String,String>] the found versions
     def raise_version_mismatch!(installed)
-      raise Dependency::VersionMismatch.new <<-EOERR
-        Could not find an executable #{executable_description} that matched the
-        requirements #{requirements_description}.
-        Found versions were #{installed.inspect}
-      EOERR
+      raise Dependency::VersionMismatch.new(
+        "Could not find an executable #{executable_description} that " +
+        "matched the requirements #{requirements_description}. " +
+        "Found versions were #{installed.inspect}.")
     end
 
     # @api private
