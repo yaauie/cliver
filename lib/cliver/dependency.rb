@@ -187,9 +187,15 @@ module Cliver
       paths = @path.sub('*', ENV['PATH']).split(File::PATH_SEPARATOR)
       cmds = strict? ? @executables.first(1) : @executables
 
+      detected_exes = []
       cmds.product(paths, exts).map do |cmd, path, ext|
         exe = File.expand_path("#{cmd}#{ext}", path)
-        yield exe if File.executable?(exe)
+
+        next unless File.executable?(exe)
+        next if detected_exes.include?(exe) # don't yield the same exe path 2x
+
+        detected_exes << exe
+        yield exe
       end
     end
   end

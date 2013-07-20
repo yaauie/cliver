@@ -66,6 +66,29 @@ describe Cliver do
     end
   end
 
+  context 'when given executable as a path' do
+    let(:version_map) do
+      {'/baz/bingo/doodle' => '1.2.1'}
+    end
+    let(:path) { '/fiddle/foo:/deedle/dee'}
+
+    context 'that is absolute' do
+      let(:executable) { '/baz/bingo/doodle' }
+      %w(assert dependency_unmet? detect detect).each do |method_name|
+        context "::#{method_name}" do
+          let(:method) { method_name.to_sym }
+          it 'should only detect its version once' do
+            Cliver::Dependency.any_instance.
+              should_receive(:detect_version).
+              once.
+              and_call_original
+            action
+          end
+        end
+      end
+    end
+  end
+
   context 'when first-found version insufficient' do
     let(:version_map) do
       {'/baz/bingo/doodle' => '1.0.1'}
