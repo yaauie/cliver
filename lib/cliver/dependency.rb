@@ -67,7 +67,7 @@ module Cliver
     # @raise [ArgumentError] if incompatibility found
     def check_compatibility!
       case
-      when @executables.any? {|exe| exe[?/] && !exe.start_with?(?/) }
+      when @executables.any? {|exe| exe[%r(\A[^/].*/)] }
         raise ArgumentError, "Relative-path executable requirements are not supported."
       end
     end
