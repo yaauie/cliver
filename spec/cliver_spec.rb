@@ -87,6 +87,18 @@ describe Cliver do
         end
       end
     end
+
+    context 'that is relative' do
+      let(:executable) { 'baz/bingo/doodle' }
+      %w(assert dependency_unmet? detect detect).each do |method_name|
+        context "::#{method_name}" do
+          let(:method) { method_name.to_sym }
+          it 'should raise an ArgumentError' do
+            expect { action }.to raise_exception ArgumentError
+          end
+        end
+      end
+    end
   end
 
   context 'when first-found version insufficient' do

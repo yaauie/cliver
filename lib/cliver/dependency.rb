@@ -55,8 +55,21 @@ module Cliver
       @strict = options.fetch(:strict, false)
 
       @executables = Array(executables).dup.freeze
-
       @requirement = args unless args.empty?
+
+      check_compatibility!
+    end
+
+    # One of these things is not like the other ones...
+    # Some feature combinations just aren't compatible. This method ensures
+    # the the features selected for this object are compatible with each-other.
+    # @return [void]
+    # @raise [ArgumentError] if incompatibility found
+    def check_compatibility!
+      case
+      when @executables.any? {|exe| exe[?/] && !exe.start_with?(?/) }
+        raise ArgumentError, "Relative-path executable requirements are not supported."
+      end
     end
 
     # Get all the installed versions of the api-compatible executables.
