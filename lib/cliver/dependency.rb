@@ -188,7 +188,7 @@ module Cliver
       cmds = strict? ? @executables.first(1) : @executables
 
       cmds.product(paths, exts).map do |cmd, path, ext|
-        exe = File.join(path, "#{cmd}#{ext}")
+        exe = File.expand_path("#{cmd}#{ext}", path)
         yield exe if File.executable?(exe)
       end
     end
