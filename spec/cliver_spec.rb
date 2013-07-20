@@ -32,14 +32,14 @@ describe Cliver do
     args << options
   end
 
-  let(:path) { 'foo/bar:baz/bingo' }
+  let(:path) { '/foo/bar:/baz/bingo' }
   let(:executable) { 'doodle' }
   let(:requirement) { '~>1.1'}
 
   context 'when first-found version is sufficient' do
 
     let(:version_map) do
-      {'baz/bingo/doodle' => '1.2.1'}
+      {'/baz/bingo/doodle' => '1.2.1'}
     end
 
     context '::assert' do
@@ -55,20 +55,20 @@ describe Cliver do
     end
     context '::detect' do
       let(:method) { :detect }
-      it { should eq 'baz/bingo/doodle' }
+      it { should eq '/baz/bingo/doodle' }
     end
     context '::detect!' do
       let(:method) { :detect! }
       it 'should not raise' do
         expect { action }.to_not raise_exception
       end
-      it { should eq 'baz/bingo/doodle' }
+      it { should eq '/baz/bingo/doodle' }
     end
   end
 
   context 'when first-found version insufficient' do
     let(:version_map) do
-      {'baz/bingo/doodle' => '1.0.1'}
+      {'/baz/bingo/doodle' => '1.0.1'}
     end
     context '::assert' do
       let(:method) { :assert }
@@ -94,8 +94,8 @@ describe Cliver do
     context 'and when sufficient version found later on path' do
       let(:version_map) do
         {
-          'foo/bar/doodle'    => '0.0.1',
-          'baz/bingo/doodle'  => '1.1.0',
+          '/foo/bar/doodle'    => '0.0.1',
+          '/baz/bingo/doodle'  => '1.1.0',
         }
       end
       context '::assert' do
@@ -110,14 +110,14 @@ describe Cliver do
       end
       context '::detect' do
         let(:method) { :detect }
-        it { should eq 'baz/bingo/doodle'}
+        it { should eq '/baz/bingo/doodle'}
       end
       context '::detect!' do
         let(:method) { :detect! }
         it 'should not raise' do
           expect { action }.to_not raise_exception
         end
-        it { should eq 'baz/bingo/doodle' }
+        it { should eq '/baz/bingo/doodle' }
       end
     end
   end
@@ -154,26 +154,26 @@ describe Cliver do
       context 'and primary sufficient' do
         let(:version_map) do
           {
-            'baz/bingo/primary' => '1.1',
-            'foo/bar/fallback' => '1.1'
+            '/baz/bingo/primary' => '1.1',
+            '/foo/bar/fallback' => '1.1'
           }
         end
         context '::detect' do
           let(:method) { :detect }
-          it { should eq 'baz/bingo/primary' }
+          it { should eq '/baz/bingo/primary' }
         end
       end
       context 'and primary insufficient' do
         let(:version_map) do
           {
-            'baz/bingo/primary' => '2.1',
-            'foo/bar/fallback' => '1.1'
+            '/baz/bingo/primary' => '2.1',
+            '/foo/bar/fallback' => '1.1'
           }
         end
         context 'the secondary' do
           context '::detect' do
             let(:method) { :detect }
-            it { should eq 'foo/bar/fallback' }
+            it { should eq '/foo/bar/fallback' }
           end
         end
       end
@@ -182,12 +182,12 @@ describe Cliver do
       context 'and sufficient secondary does' do
         let(:version_map) do
           {
-            'foo/bar/fallback' => '1.1'
+            '/foo/bar/fallback' => '1.1'
           }
         end
         context '::detect' do
           let(:method) { :detect }
-          it { should eq 'foo/bar/fallback' }
+          it { should eq '/foo/bar/fallback' }
         end
       end
     end
