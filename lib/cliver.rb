@@ -40,8 +40,8 @@ module Cliver
   # @overload (see Cliver::Dependency#initialize)
   # @param (see Cliver::Dependency#initialize)
   # @option options [Boolean] :strict (true) @see Cliver::Dependency::initialize
-  # @raise (see Cliver::Dependency#assert!)
-  # @return (see Cliver::Dependency#assert!)
+  # @raise (see Cliver::Dependency#detect!)
+  # @return (see Cliver::Dependency#detect!)
   def self.assert(*args, &block)
     options = args.last.kind_of?(Hash) ? args.pop : {}
     args << options.merge(:strict => true)
