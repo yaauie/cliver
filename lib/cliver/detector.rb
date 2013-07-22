@@ -41,6 +41,13 @@ module Cliver
     #                    version number.
     def detect_version(executable_path)
       output = shell_out_and_capture version_command(executable_path).shelljoin
+      if $?.exitstatus == 127
+        raise Cliver::Dependency::NotFound.new(
+            "Could not find an executable at given path '#{executable_path}'." +
+            "If this path was not specified explicitly, it is probably a " +
+            "bug in [Cliver](https://github.com/yaauie/cliver/issues)."
+          )
+      end
       output[version_pattern]
     end
 

@@ -66,6 +66,45 @@ describe Cliver do
     end
   end
 
+  context '::verify!' do
+    let(:method) { :verify! }
+    let(:version_map) do
+      {'/baz/bingo/doodle' => '0.2.1',
+       '/baz/fiddle/doodle' => '1.1.4'}
+    end
+    let(:args) do
+      args = [executable]
+      args.concat Array(requirement)
+      args << options
+    end
+    context 'when a relative path is given' do
+      let(:executable) { 'foo/bar/doodle' }
+      it 'should raise' do
+        expect { action }.to raise_exception ArgumentError
+      end
+    end
+    context 'when an absolute path is given' do
+      context 'and that path is not found' do
+        let(:executable) { '/blip/boom' }
+        it 'should raise' do
+          expect { action }.to raise_exception Cliver::Dependency::NotFound
+        end
+      end
+      context 'and the executable at that path is sufficent' do
+        let(:executable) { '/baz/fiddle/doodle' }
+        it 'should not raise' do
+          expect { action }.to_not raise_exception Cliver::Dependency::NotFound
+        end
+      end
+      context 'and the executable at that path is not sufficent' do
+        let(:executable) { '/baz/bingo/doodle' }
+        it 'should raise' do
+          expect { action }.to raise_exception Cliver::Dependency::VersionMismatch
+        end
+      end
+    end
+  end
+
   context 'when given executable as a path' do
     let(:version_map) do
       {'/baz/bingo/doodle' => '1.2.1'}
