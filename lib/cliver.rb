@@ -49,11 +49,12 @@ module Cliver
   end
 
   # Verify an absolute-path to an executable.
-  # @param (see Cliver::Dependency#initialize)
-  #   EXCEPT: executable must be a single, absolute path.
-  # @option options [Boolean] :strict (true) @see Cliver::Dependency::initialize
-  # @raise (see Cliver::Dependency#detect!)
-  # @return (see Cliver::Dependency#detect!)
+  # @overload verify!(executable, *requirements, options = {})
+  #   @param executable [String] absolute path to an executable
+  #   @param requirements (see Cliver::Dependency#initialize)
+  #   @option options (see Cliver::Dependency::initialize)
+  #   @raise (see Cliver::Dependency#detect!)
+  #   @return (see Cliver::Dependency#detect!)
   def self.verify!(executable, *args, &block)
     unless File.absolute_path?(executable)
       raise ArgumentError, "executable path must be absolute, " +
