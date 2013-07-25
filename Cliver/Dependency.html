@@ -101,8 +101,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>This is how a dependency is specified.</p>
+    <p>This is how a dependency is specified.</p>
 
 
   </div>
@@ -118,8 +117,7 @@
         <dt id="NotMet-constant" class="">NotMet =
           <div class="docstring">
   <div class="discussion">
-    
-<p>An exception class raised when assertion is not met</p>
+    <p>An exception class raised when assertion is not met</p>
 
 
   </div>
@@ -134,9 +132,8 @@
         <dt id="VersionMismatch-constant" class="">VersionMismatch =
           <div class="docstring">
   <div class="discussion">
-    
-<p>An exception that is raised when executable present, but no version that
-matches the requirements is present.</p>
+    <p>An exception that is raised when executable present, but
+no version that matches the requirements is present.</p>
 
 
   </div>
@@ -151,8 +148,7 @@ matches the requirements is present.</p>
         <dt id="NotFound-constant" class="">NotFound =
           <div class="docstring">
   <div class="discussion">
-    
-<p>An exception that is raised when executable is not present at all.</p>
+    <p>An exception that is raised when executable is not present at all.</p>
 
 
   </div>
@@ -167,8 +163,7 @@ matches the requirements is present.</p>
         <dt id="PARSABLE_GEM_VERSION-constant" class="">PARSABLE_GEM_VERSION =
           <div class="docstring">
   <div class="discussion">
-    
-<p>A pattern for extracting a Gem::Version-parsable version</p>
+    <p>A pattern for extracting a Gem::Version-parsable version</p>
 
 
   </div>
@@ -200,6 +195,29 @@ matches the requirements is present.</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#check_compatibility%21-instance_method" title="#check_compatibility! (instance method)">- (void) <strong>check_compatibility!</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>One of these things is not like the other ones...</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#detect-instance_method" title="#detect (instance method)">- (see #detect!) <strong>detect</strong> </a>
     
 
@@ -214,8 +232,7 @@ matches the requirements is present.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>The non-raise variant of <span class='object_link'><a href="#detect%21-instance_method" title="Cliver::Dependency#detect! (method)">#detect!</a></span>.</p>
+    <span class="summary_desc"><div class='inline'><p>The non-raise variant of <span class='object_link'><a href="#detect%21-instance_method" title="Cliver::Dependency#detect! (method)">#detect!</a></span>.</p>
 </div></span>
   
 </li>
@@ -238,8 +255,7 @@ matches the requirements is present.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Detects an installed version of the executable that matches the
+    <span class="summary_desc"><div class='inline'><p>Detects an installed version of the executable that matches the
 requirements.</p>
 </div></span>
   
@@ -265,8 +281,7 @@ requirements.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>A new instance of Dependency.</p>
+    <span class="summary_desc"><div class='inline'><p>A new instance of Dependency.</p>
 </div></span>
   
 </li>
@@ -289,8 +304,7 @@ requirements.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Get all the installed versions of the api-compatible executables.</p>
+    <span class="summary_desc"><div class='inline'><p>Get all the installed versions of the api-compatible executables.</p>
 </div></span>
   
 </li>
@@ -313,8 +327,7 @@ requirements.</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>A new instance of Dependency</p>
+    <p>A new instance of Dependency</p>
 
 
   </div>
@@ -341,8 +354,8 @@ requirements.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>api-compatible executable names e.g, [‘python2’,‘python’]</p>
+        <div class='inline'><p>api-compatible executable names
+e.g, [&#39;python2&#39;,&#39;python&#39;]</p>
 </div>
       
     </li>
@@ -357,17 +370,14 @@ requirements.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>splat of strings whose elements follow the pattern</p>
-
-<pre class="code ruby"><code class="ruby">[&lt;operator&gt;] &lt;version&gt;</code></pre>
-
-<p>Where &lt;operator&gt; is optional (default ‘=”) and in the set</p>
-
-<pre class="code ruby"><code class="ruby">'=', '!=', '&gt;', '&lt;', '&gt;=', '&lt;=', or '~&gt;'</code></pre>
-
-<p>And &lt;version&gt; is dot-separated integers with optional alphanumeric
-pre-release suffix. See also <a href="http://docs.rubygems.org/read/chapter/16" target="_parent" title="Specifying Versions">Specifying Versions</a></p>
+        <div class='inline'><p>splat of strings
+whose elements follow the pattern
+  [<operator>] <version>
+Where <operator> is optional (default &#39;=&#39;&#39;) and in the set
+  &#39;=&#39;, &#39;!=&#39;, &#39;&gt;&#39;, &#39;&lt;&#39;, &#39;&gt;=&#39;, &#39;&lt;=&#39;, or &#39;~&gt;&#39;
+And <version> is dot-separated integers with optional
+alphanumeric pre-release suffix. See also
+<a href="http://docs.rubygems.org/read/chapter/16" target="_parent" title="Specifying Versions">Specifying Versions</a></p>
 </div>
       
     </li>
@@ -443,15 +453,11 @@ pre-release suffix. See also <a href="http://docs.rubygems.org/read/chapter/16" 
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>true -  fail if first match on path fails</p>
-
-<pre class="code ruby"><code class="ruby">to meet version requirements.
-This is used for Cliver::assert.</code></pre>
-
-<p>false - continue looking on path until a</p>
-
-<pre class="code ruby"><code class="ruby">sufficient version is found.</code></pre>
+            &mdash; <div class='inline'><p>true -  fail if first match on path fails
+        to meet version requirements.
+        This is used for Cliver::assert.
+false - continue looking on path until a
+        sufficient version is found.</p>
 </div>
           
         </li>
@@ -466,10 +472,10 @@ This is used for Cliver::assert.</code></pre>
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>the path on which to search for executables. If an asterisk (`*`) is
-included in the supplied string, it is replaced with `<a
-href="http://'PATH'">ENV</a>`</p>
+            &mdash; <div class='inline'><p>the path on which to search
+for executables. If an asterisk (<code>*</code>) is
+included in the supplied string, it is
+replaced with <code>ENV[&#39;PATH&#39;]</code></p>
 </div>
           
         </li>
@@ -490,8 +496,7 @@ href="http://'PATH'">ENV</a>`</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>(see Detector#detect_version)</p>
+        <div class='inline'><p>(see Detector#detect_version)</p>
 </div>
       
     </li>
@@ -508,8 +513,8 @@ href="http://'PATH'">ENV</a>`</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>containing a version that, once filtered, can be used for comparrison.</p>
+        <div class='inline'><p>containing a version that, once filtered, can be
+used for comparrison.</p>
 </div>
       
     </li>
@@ -535,7 +540,8 @@ href="http://'PATH'">ENV</a>`</p>
 57
 58
 59
-60</pre>
+60
+61</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cliver/dependency.rb', line 50</span>
@@ -548,8 +554,9 @@ href="http://'PATH'">ENV</a>`</p>
   <span class='ivar'>@strict</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='symbol'>:strict</span><span class='comma'>,</span> <span class='kw'>false</span><span class='rparen'>)</span>
 
   <span class='ivar'>@executables</span> <span class='op'>=</span> <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_executables'>executables</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span>
-
   <span class='ivar'>@requirement</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span> <span class='kw'>unless</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+
+  <span class='id identifier rubyid_check_compatibility!'>check_compatibility!</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -564,7 +571,74 @@ href="http://'PATH'">ENV</a>`</p>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="detect-instance_method">
+  <h3 class="signature first" id="check_compatibility!-instance_method">
+  
+    - (<tt>void</tt>) <strong>check_compatibility!</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p><p>One of these things is not like the other ones...
+Some feature combinations just aren&#39;t compatible. This method ensures
+the the features selected for this object are compatible with each-other.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>ArgumentError</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>if incompatibility found</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+68
+69
+70
+71
+72
+73
+74</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cliver/dependency.rb', line 68</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_check_compatibility!'>check_compatibility!</span>
+  <span class='kw'>case</span>
+  <span class='kw'>when</span> <span class='ivar'>@executables</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_exe'>exe</span><span class='op'>|</span> <span class='id identifier rubyid_exe'>exe</span><span class='lbracket'>[</span><span class='const'>File</span><span class='op'>::</span><span class='const'>SEPARATOR</span><span class='rbracket'>]</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_absolute_path?'>absolute_path?</span><span class='lparen'>(</span><span class='id identifier rubyid_exe'>exe</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+    <span class='comment'># if the executable contains a path component, it *must* be absolute.
+</span>    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Relative-path executable requirements are not supported.</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="detect-instance_method">
   
     - (<tt>see #<span class='object_link'><a href="../Cliver.html#detect-class_method" title="Cliver.detect (method)">detect</a></span>!</tt>) <strong>detect</strong> 
   
@@ -574,8 +648,7 @@ href="http://'PATH'">ENV</a>`</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>The non-raise variant of <span class='object_link'><a href="#detect%21-instance_method" title="Cliver::Dependency#detect! (method)">#detect!</a></span></p>
+    <p>The non-raise variant of <span class='object_link'><a href="#detect%21-instance_method" title="Cliver::Dependency#detect! (method)">#detect!</a></span></p>
 
 
   </div>
@@ -593,8 +666,7 @@ href="http://'PATH'">ENV</a>`</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>or nil if no match found.</p>
+        <div class='inline'><p>or nil if no match found.</p>
 </div>
       
     </li>
@@ -607,14 +679,14 @@ href="http://'PATH'">ENV</a>`</p>
       <pre class="lines">
 
 
-81
-82
-83
-84
-85</pre>
+95
+96
+97
+98
+99</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cliver/dependency.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'lib/cliver/dependency.rb', line 95</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_detect'>detect</span>
   <span class='id identifier rubyid_detect!'>detect!</span>
@@ -637,8 +709,7 @@ href="http://'PATH'">ENV</a>`</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Detects an installed version of the executable that matches the
+    <p>Detects an installed version of the executable that matches the
 requirements.</p>
 
 
@@ -657,8 +728,7 @@ requirements.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>path to an executable that meets the requirements</p>
+        <div class='inline'><p>path to an executable that meets the requirements</p>
 </div>
       
     </li>
@@ -675,8 +745,7 @@ requirements.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>if no match found</p>
+        <div class='inline'><p>if no match found</p>
 </div>
       
     </li>
@@ -689,21 +758,21 @@ requirements.</p>
       <pre class="lines">
 
 
-91
-92
-93
-94
-95
-96
-97
-98
-99
-100
-101
-102</pre>
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cliver/dependency.rb', line 91</span>
+      <pre class="code"><span class="info file"># File 'lib/cliver/dependency.rb', line 105</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_detect!'>detect!</span>
   <span class='id identifier rubyid_installed'>installed</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -733,9 +802,8 @@ requirements.</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Get all the installed versions of the api-compatible executables. If a
-block is given, it yields once per found executable, lazily.</p>
+    <p>Get all the installed versions of the api-compatible executables.
+If a block is given, it yields once per found executable, lazily.</p>
 
 
   </div>
@@ -779,9 +847,9 @@ block is given, it yields once per found executable, lazily.</p>
       
       
         &mdash;
-        <div class='inline'><ul><li>
-<p>true if search should stop.</p>
-</li></ul>
+        <div class='inline'><ul>
+<li>true if search should stop.</li>
+</ul>
 </div>
       
     </li>
@@ -798,8 +866,7 @@ block is given, it yields once per found executable, lazily.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>executable_path, version</p>
+        <div class='inline'><p>executable_path, version</p>
 </div>
       
     </li>
@@ -812,18 +879,18 @@ block is given, it yields once per found executable, lazily.</p>
       <pre class="lines">
 
 
-68
-69
-70
-71
-72
-73
-74
-75
-76</pre>
+82
+83
+84
+85
+86
+87
+88
+89
+90</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cliver/dependency.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'lib/cliver/dependency.rb', line 82</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_installed_versions'>installed_versions</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_enum_for'>enum_for</span><span class='lparen'>(</span><span class='symbol'>:installed_versions</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -844,7 +911,7 @@ block is given, it yields once per found executable, lazily.</p>
 </div>
 
     <div id="footer">
-  Generated on Sun Jul 14 18:53:52 2013 by
+  Generated on Thu Jul 25 17:03:44 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.1 (ruby-1.9.3).
 </div>

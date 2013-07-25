@@ -96,9 +96,8 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>Cliver is tool for making dependency assertions against command-line
-executables.</p>
+    <p>Cliver is tool for making dependency assertions against
+command-line executables.</p>
 
 
   </div>
@@ -126,8 +125,7 @@ executables.</p>
         <dt id="VERSION-constant" class="">VERSION =
           <div class="docstring">
   <div class="discussion">
-    
-<p>Cliver follows <a href="http://semver.org" target="_parent" title="SemVer">SemVer</a></p>
+    <p>Cliver follows <a href="http://semver.org" target="_parent" title="SemVer">SemVer</a></p>
 
 
   </div>
@@ -137,7 +135,7 @@ executables.</p>
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>0.2.0</span><span class='tstring_end'>'</span></span></pre></dd>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>0.2.1</span><span class='tstring_end'>'</span></span></pre></dd>
       
     </dl>
   
@@ -173,8 +171,7 @@ executables.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>A legacy interface for detect with the option `strict: true`, ensures
+    <span class="summary_desc"><div class='inline'><p>A legacy interface for detect with the option <code>strict: true</code>, ensures
 that the first executable on your path matches the requirements.</p>
 </div></span>
   
@@ -198,8 +195,7 @@ that the first executable on your path matches the requirements.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>A non-raising variant of detect!, simply returns false if dependency
+    <span class="summary_desc"><div class='inline'><p>A non-raising variant of detect!, simply returns false if dependency
 cannot be found.</p>
 </div></span>
   
@@ -223,10 +219,32 @@ cannot be found.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>The primary interface for the Cliver gem allows detection of an executable
+    <span class="summary_desc"><div class='inline'><p>The primary interface for the Cliver gem allows detection of an executable
 on your path that matches a version requirement, or raise an appropriate
 exception to make resolution simple and straight-forward.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#verify%21-class_method" title="verify! (class method)">+ (String) <strong>verify!</strong>(executable, *requirements, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Verify an absolute-path to an executable.</p>
 </div></span>
   
 </li>
@@ -258,8 +276,7 @@ exception to make resolution simple and straight-forward.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Wraps Cliver::assert and returns truthy/false instead of raising.</p>
+    <span class="summary_desc"><div class='inline'><p>Wraps Cliver::assert and returns truthy/false instead of raising.</p>
 </div></span>
   
 </li>
@@ -285,8 +302,7 @@ exception to make resolution simple and straight-forward.</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>A legacy interface for detect with the option `strict: true`, ensures
+    <p>A legacy interface for detect with the option <code>strict: true</code>, ensures
 that the first executable on your path matches the requirements.</p>
 
 
@@ -314,8 +330,8 @@ that the first executable on your path matches the requirements.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>api-compatible executable names e.g, [‘python2’,‘python’]</p>
+        <div class='inline'><p>api-compatible executable names
+e.g, [&#39;python2&#39;,&#39;python&#39;]</p>
 </div>
       
     </li>
@@ -330,17 +346,14 @@ that the first executable on your path matches the requirements.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>splat of strings whose elements follow the pattern</p>
-
-<pre class="code ruby"><code class="ruby">[&lt;operator&gt;] &lt;version&gt;</code></pre>
-
-<p>Where &lt;operator&gt; is optional (default ‘=”) and in the set</p>
-
-<pre class="code ruby"><code class="ruby">'=', '!=', '&gt;', '&lt;', '&gt;=', '&lt;=', or '~&gt;'</code></pre>
-
-<p>And &lt;version&gt; is dot-separated integers with optional alphanumeric
-pre-release suffix. See also <a href="http://docs.rubygems.org/read/chapter/16" target="_parent" title="Specifying Versions">Specifying Versions</a></p>
+        <div class='inline'><p>splat of strings
+whose elements follow the pattern
+  [<operator>] <version>
+Where <operator> is optional (default &#39;=&#39;&#39;) and in the set
+  &#39;=&#39;, &#39;!=&#39;, &#39;&gt;&#39;, &#39;&lt;&#39;, &#39;&gt;=&#39;, &#39;&lt;=&#39;, or &#39;~&gt;&#39;
+And <version> is dot-separated integers with optional
+alphanumeric pre-release suffix. See also
+<a href="http://docs.rubygems.org/read/chapter/16" target="_parent" title="Specifying Versions">Specifying Versions</a></p>
 </div>
       
     </li>
@@ -416,15 +429,11 @@ pre-release suffix. See also <a href="http://docs.rubygems.org/read/chapter/16" 
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>true -  fail if first match on path fails</p>
-
-<pre class="code ruby"><code class="ruby">to meet version requirements.
-This is used for Cliver::assert.</code></pre>
-
-<p>false - continue looking on path until a</p>
-
-<pre class="code ruby"><code class="ruby">sufficient version is found.</code></pre>
+            &mdash; <div class='inline'><p>true -  fail if first match on path fails
+        to meet version requirements.
+        This is used for Cliver::assert.
+false - continue looking on path until a
+        sufficient version is found.</p>
 </div>
           
         </li>
@@ -439,10 +448,10 @@ This is used for Cliver::assert.</code></pre>
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>the path on which to search for executables. If an asterisk (`*`) is
-included in the supplied string, it is replaced with `<a
-href="http://'PATH'">ENV</a>`</p>
+            &mdash; <div class='inline'><p>the path on which to search
+for executables. If an asterisk (<code>*</code>) is
+included in the supplied string, it is
+replaced with <code>ENV[&#39;PATH&#39;]</code></p>
 </div>
           
         </li>
@@ -463,8 +472,7 @@ href="http://'PATH'">ENV</a>`</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>(see Detector#detect_version)</p>
+        <div class='inline'><p>(see Detector#detect_version)</p>
 </div>
       
     </li>
@@ -481,8 +489,8 @@ href="http://'PATH'">ENV</a>`</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>containing a version that, once filtered, can be used for comparrison.</p>
+        <div class='inline'><p>containing a version that, once filtered, can be
+used for comparrison.</p>
 </div>
       
     </li>
@@ -503,8 +511,7 @@ href="http://'PATH'">ENV</a>`</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>a customizable set of options</p>
+        <div class='inline'><p>a customizable set of options</p>
 </div>
       
     </li>
@@ -517,6 +524,40 @@ href="http://'PATH'">ENV</a>`</p>
     
     
 
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>path to an executable that meets the requirements</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Cliver/Dependency.html#NotMet-constant" title="Cliver::Dependency::NotMet (constant)">Cliver::Dependency::NotMet</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>if no match found</p>
+</div>
+      
+    </li>
+  
+</ul>
 
   <p class="tag_title">See Also:</p>
   <ul class="see">
@@ -531,14 +572,14 @@ href="http://'PATH'">ENV</a>`</p>
       <pre class="lines">
 
 
-42
-43
-44
 45
-46</pre>
+46
+47
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cliver.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/cliver.rb', line 45</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_pop'>pop</span> <span class='op'>:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -561,8 +602,7 @@ href="http://'PATH'">ENV</a>`</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>A non-raising variant of detect!, simply returns false if dependency
+    <p>A non-raising variant of detect!, simply returns false if dependency
 cannot be found.</p>
 
 
@@ -590,8 +630,8 @@ cannot be found.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>api-compatible executable names e.g, [‘python2’,‘python’]</p>
+        <div class='inline'><p>api-compatible executable names
+e.g, [&#39;python2&#39;,&#39;python&#39;]</p>
 </div>
       
     </li>
@@ -606,17 +646,14 @@ cannot be found.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>splat of strings whose elements follow the pattern</p>
-
-<pre class="code ruby"><code class="ruby">[&lt;operator&gt;] &lt;version&gt;</code></pre>
-
-<p>Where &lt;operator&gt; is optional (default ‘=”) and in the set</p>
-
-<pre class="code ruby"><code class="ruby">'=', '!=', '&gt;', '&lt;', '&gt;=', '&lt;=', or '~&gt;'</code></pre>
-
-<p>And &lt;version&gt; is dot-separated integers with optional alphanumeric
-pre-release suffix. See also <a href="http://docs.rubygems.org/read/chapter/16" target="_parent" title="Specifying Versions">Specifying Versions</a></p>
+        <div class='inline'><p>splat of strings
+whose elements follow the pattern
+  [<operator>] <version>
+Where <operator> is optional (default &#39;=&#39;&#39;) and in the set
+  &#39;=&#39;, &#39;!=&#39;, &#39;&gt;&#39;, &#39;&lt;&#39;, &#39;&gt;=&#39;, &#39;&lt;=&#39;, or &#39;~&gt;&#39;
+And <version> is dot-separated integers with optional
+alphanumeric pre-release suffix. See also
+<a href="http://docs.rubygems.org/read/chapter/16" target="_parent" title="Specifying Versions">Specifying Versions</a></p>
 </div>
       
     </li>
@@ -692,15 +729,11 @@ pre-release suffix. See also <a href="http://docs.rubygems.org/read/chapter/16" 
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>true -  fail if first match on path fails</p>
-
-<pre class="code ruby"><code class="ruby">to meet version requirements.
-This is used for Cliver::assert.</code></pre>
-
-<p>false - continue looking on path until a</p>
-
-<pre class="code ruby"><code class="ruby">sufficient version is found.</code></pre>
+            &mdash; <div class='inline'><p>true -  fail if first match on path fails
+        to meet version requirements.
+        This is used for Cliver::assert.
+false - continue looking on path until a
+        sufficient version is found.</p>
 </div>
           
         </li>
@@ -715,10 +748,10 @@ This is used for Cliver::assert.</code></pre>
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>the path on which to search for executables. If an asterisk (`*`) is
-included in the supplied string, it is replaced with `<a
-href="http://'PATH'">ENV</a>`</p>
+            &mdash; <div class='inline'><p>the path on which to search
+for executables. If an asterisk (<code>*</code>) is
+included in the supplied string, it is
+replaced with <code>ENV[&#39;PATH&#39;]</code></p>
 </div>
           
         </li>
@@ -739,8 +772,7 @@ href="http://'PATH'">ENV</a>`</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>(see Detector#detect_version)</p>
+        <div class='inline'><p>(see Detector#detect_version)</p>
 </div>
       
     </li>
@@ -757,8 +789,8 @@ href="http://'PATH'">ENV</a>`</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>containing a version that, once filtered, can be used for comparrison.</p>
+        <div class='inline'><p>containing a version that, once filtered, can be
+used for comparrison.</p>
 </div>
       
     </li>
@@ -778,8 +810,7 @@ href="http://'PATH'">ENV</a>`</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>or nil if no match found.</p>
+        <div class='inline'><p>or nil if no match found.</p>
 </div>
       
     </li>
@@ -799,12 +830,12 @@ href="http://'PATH'">ENV</a>`</p>
       <pre class="lines">
 
 
-30
-31
-32</pre>
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cliver.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'lib/cliver.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_detect'>detect</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='const'>Dependency</span><span class='op'>::</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_detect'>detect</span>
@@ -825,8 +856,7 @@ href="http://'PATH'">ENV</a>`</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>The primary interface for the Cliver gem allows detection of an executable
+    <p>The primary interface for the Cliver gem allows detection of an executable
 on your path that matches a version requirement, or raise an appropriate
 exception to make resolution simple and straight-forward.</p>
 
@@ -855,8 +885,8 @@ exception to make resolution simple and straight-forward.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>api-compatible executable names e.g, [‘python2’,‘python’]</p>
+        <div class='inline'><p>api-compatible executable names
+e.g, [&#39;python2&#39;,&#39;python&#39;]</p>
 </div>
       
     </li>
@@ -871,17 +901,14 @@ exception to make resolution simple and straight-forward.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>splat of strings whose elements follow the pattern</p>
-
-<pre class="code ruby"><code class="ruby">[&lt;operator&gt;] &lt;version&gt;</code></pre>
-
-<p>Where &lt;operator&gt; is optional (default ‘=”) and in the set</p>
-
-<pre class="code ruby"><code class="ruby">'=', '!=', '&gt;', '&lt;', '&gt;=', '&lt;=', or '~&gt;'</code></pre>
-
-<p>And &lt;version&gt; is dot-separated integers with optional alphanumeric
-pre-release suffix. See also <a href="http://docs.rubygems.org/read/chapter/16" target="_parent" title="Specifying Versions">Specifying Versions</a></p>
+        <div class='inline'><p>splat of strings
+whose elements follow the pattern
+  [<operator>] <version>
+Where <operator> is optional (default &#39;=&#39;&#39;) and in the set
+  &#39;=&#39;, &#39;!=&#39;, &#39;&gt;&#39;, &#39;&lt;&#39;, &#39;&gt;=&#39;, &#39;&lt;=&#39;, or &#39;~&gt;&#39;
+And <version> is dot-separated integers with optional
+alphanumeric pre-release suffix. See also
+<a href="http://docs.rubygems.org/read/chapter/16" target="_parent" title="Specifying Versions">Specifying Versions</a></p>
 </div>
       
     </li>
@@ -957,15 +984,11 @@ pre-release suffix. See also <a href="http://docs.rubygems.org/read/chapter/16" 
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>true -  fail if first match on path fails</p>
-
-<pre class="code ruby"><code class="ruby">to meet version requirements.
-This is used for Cliver::assert.</code></pre>
-
-<p>false - continue looking on path until a</p>
-
-<pre class="code ruby"><code class="ruby">sufficient version is found.</code></pre>
+            &mdash; <div class='inline'><p>true -  fail if first match on path fails
+        to meet version requirements.
+        This is used for Cliver::assert.
+false - continue looking on path until a
+        sufficient version is found.</p>
 </div>
           
         </li>
@@ -980,10 +1003,10 @@ This is used for Cliver::assert.</code></pre>
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>the path on which to search for executables. If an asterisk (`*`) is
-included in the supplied string, it is replaced with `<a
-href="http://'PATH'">ENV</a>`</p>
+            &mdash; <div class='inline'><p>the path on which to search
+for executables. If an asterisk (<code>*</code>) is
+included in the supplied string, it is
+replaced with <code>ENV[&#39;PATH&#39;]</code></p>
 </div>
           
         </li>
@@ -1004,8 +1027,7 @@ href="http://'PATH'">ENV</a>`</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>(see Detector#detect_version)</p>
+        <div class='inline'><p>(see Detector#detect_version)</p>
 </div>
       
     </li>
@@ -1022,8 +1044,8 @@ href="http://'PATH'">ENV</a>`</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>containing a version that, once filtered, can be used for comparrison.</p>
+        <div class='inline'><p>containing a version that, once filtered, can be
+used for comparrison.</p>
 </div>
       
     </li>
@@ -1043,8 +1065,7 @@ href="http://'PATH'">ENV</a>`</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>path to an executable that meets the requirements</p>
+        <div class='inline'><p>path to an executable that meets the requirements</p>
 </div>
       
     </li>
@@ -1061,8 +1082,7 @@ href="http://'PATH'">ENV</a>`</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>if no match found</p>
+        <div class='inline'><p>if no match found</p>
 </div>
       
     </li>
@@ -1082,15 +1102,128 @@ href="http://'PATH'">ENV</a>`</p>
       <pre class="lines">
 
 
-19
-20
-21</pre>
+22
+23
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cliver.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'lib/cliver.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_detect!'>detect!</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='const'>Dependency</span><span class='op'>::</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_detect!'>detect!</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="verify!-class_method">
+  
+    + (<tt>String</tt>) <strong>verify!</strong>(executable, *requirements, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Verify an absolute-path to an executable.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    <p>Path to an executable that meets the requirements</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>executable</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>absolute path to an executable</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>path to an executable that meets the requirements</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Cliver/Dependency.html#NotMet-constant" title="Cliver::Dependency::NotMet (constant)">Cliver::Dependency::NotMet</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>if no match found</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+58
+59
+60
+61
+62
+63
+64</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cliver.rb', line 58</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_verify!'>verify!</span><span class='lparen'>(</span><span class='id identifier rubyid_executable'>executable</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='kw'>unless</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_absolute_path?'>absolute_path?</span><span class='lparen'>(</span><span class='id identifier rubyid_executable'>executable</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>executable path must be absolute, </span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+                         <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>got '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_executable'>executable</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='rbrace'>}</span><span class='tstring_content'>'.</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+  <span class='const'>Dependency</span><span class='op'>::</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_executable'>executable</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_detect!'>detect!</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1114,8 +1247,7 @@ href="http://'PATH'">ENV</a>`</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Wraps Cliver::assert and returns truthy/false instead of raising</p>
+    <p>Wraps Cliver::assert and returns truthy/false instead of raising</p>
 
 
   </div>
@@ -1133,8 +1265,8 @@ href="http://'PATH'">ENV</a>`</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>either returns false or the reason why the assertion was unmet.</p>
+        <div class='inline'><p>either returns false or the reason why the
+assertion was unmet.</p>
 </div>
       
     </li>
@@ -1154,17 +1286,17 @@ href="http://'PATH'">ENV</a>`</p>
       <pre class="lines">
 
 
-56
-57
-58
-59
-60
-61
-62
-63</pre>
+74
+75
+76
+77
+78
+79
+80
+81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cliver.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'lib/cliver.rb', line 74</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dependency_unmet?'>dependency_unmet?</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='const'>Cliver</span><span class='period'>.</span><span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
@@ -1184,7 +1316,7 @@ href="http://'PATH'">ENV</a>`</p>
 </div>
 
     <div id="footer">
-  Generated on Sun Jul 14 18:53:52 2013 by
+  Generated on Thu Jul 25 17:03:43 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.1 (ruby-1.9.3).
 </div>
