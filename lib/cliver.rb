@@ -60,6 +60,8 @@ module Cliver
       raise ArgumentError, "executable path must be absolute, " +
                            "got '#{executable.inspect}'."
     end
+    options = args.last.kind_of?(Hash) ? args.pop : {}
+    args << options.merge(:path => '.') # ensure path non-empty.
     Dependency::new(executable, *args, &block).detect!
   end
 
