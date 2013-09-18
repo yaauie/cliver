@@ -203,7 +203,7 @@ module Cliver
 
       detected_exes = []
       cmds.product(paths, exts).map do |cmd, path, ext|
-        exe = File.expand_path("#{cmd}#{ext}", path)
+        exe = File.absolute_path?(cmd) ? cmd : File.expand_path("#{cmd}#{ext}", path)
 
         next unless File.executable?(exe)
         next if detected_exes.include?(exe) # don't yield the same exe path 2x
