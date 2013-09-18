@@ -90,6 +90,34 @@ describe Cliver do
           expect { action }.to raise_exception Cliver::Dependency::NotFound
         end
       end
+      context '(windows path)' do
+        before(:each) do
+          stub_const('File::ABSOLUTE_PATH_PATTERN', File::WINDOWS_ABSOLUTE_PATH_PATTERN)
+        end
+        let(:version_map) do
+          {'C:/baz/bingo/doodle.exe' => '0.2.1',
+           'C:/baz/fiddle/doodle.exe' => '1.1.4'}
+        end
+        context 'and executable at that path is sufficient' do
+          let(:executable) { 'C:/baz/fiddle/doodle.exe' }
+          it 'should not raise' do
+            expect { action }.to_not raise_exception
+          end
+        end
+        context 'and the executable at that path is not sufficent' do
+          let(:executable) { 'C:/baz/bingo/doodle.exe' }
+          it 'should raise' do
+            expect { action }.to raise_exception Cliver::Dependency::VersionMismatch
+          end
+        end
+        context 'and no executable exists at that path' do
+          let(:version_map) { Hash.new }
+          let(:executable) { 'C:/baz/fiddle/doodle.exe' }
+          it 'should raise' do
+            expect { action }.to raise_exception Cliver::Dependency::NotFound
+          end
+        end
+      end
       context 'and the executable at that path is sufficent' do
         let(:executable) { '/baz/fiddle/doodle' }
         it 'should not raise' do
