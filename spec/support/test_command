@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+STDERR.puts 'foo baar 1'
+puts '1.1.1'

@@ -4,6 +4,7 @@ require File.expand_path('../core_ext/file', __FILE__)
 
 require 'cliver/version'
 require 'cliver/dependency'
+require 'cliver/shell_capture'
 require 'cliver/detector'
 require 'cliver/filter'
 
