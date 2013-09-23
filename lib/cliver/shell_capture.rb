@@ -20,7 +20,7 @@ module Cliver
         else
           @command_found = true
         end
-      rescue
+      rescue Errno::ENOENT
         @command_found = false
       end
     end
