@@ -1,6 +1,14 @@
 # encoding: utf-8
 require 'cliver'
 require 'spec_helper'
+require File.expand_path('../support/executable_mock', __FILE__)
+
+RSpec::Matchers.define :be_filesystem_equivalent_of do |expected|
+  match do |actual|
+    ExecutableMock.new(expected) == actual
+  end
+end
+
 
 describe Cliver do
   # The setup. Your test will likeley interact with subject.
@@ -10,29 +18,32 @@ describe Cliver do
   # These can get overridden in context blocks
   let(:method) { raise ArgumentError, 'spec didn\'t specify :method' }
   let(:args) { raise ArgumentError, 'spec didn\'t specify :args' }
-  let(:block) { version_map.method(:fetch) }
+  let(:block) { version_directory.method(:version) }
+
+  # BecauseWindows. This enables us to mock out File::executable?
+  # and the responses from our detectors given any representation
+  # of a file path.
+  let(:version_directory) do
+    ExecutableMock::Registry.new(version_map)
+  end
 
   before(:each) do
-    File.stub(:executable?) { |path| executables.include? path }
-    # Cliver::Dependency.any_instance.stub(:detect_version) do |arg|
-    #   version_map[arg]
-    # end
+    File.stub(:executable?, &version_directory.method(:executable?))
   end
 
   let(:options) do
     {
-      :path =>       path,
+      :path =>       path.join(File::PATH_SEPARATOR),
       :executable => executable,
     }
   end
-  let(:executables) { version_map.keys }
   let(:args) do
     args = [Array(executable)]
     args.concat Array(requirement)
     args << options
   end
 
-  let(:path) { '/foo/bar:/baz/bingo' }
+  let(:path) { ['/foo/bar','/baz/bingo'] }
   let(:executable) { 'doodle' }
   let(:requirement) { '~>1.1'}
 
@@ -55,14 +66,14 @@ describe Cliver do
     end
     context '::detect' do
       let(:method) { :detect }
-      it { should eq '/baz/bingo/doodle' }
+      it { should be_filesystem_equivalent_of '/baz/bingo/doodle' }
     end
     context '::detect!' do
       let(:method) { :detect! }
       it 'should not raise' do
         expect { action }.to_not raise_exception
       end
-      it { should eq '/baz/bingo/doodle' }
+      it { should be_filesystem_equivalent_of '/baz/bingo/doodle' }
     end
   end
 
@@ -137,7 +148,7 @@ describe Cliver do
     let(:version_map) do
       {'/baz/bingo/doodle' => '1.2.1'}
     end
-    let(:path) { '/fiddle/foo:/deedle/dee'}
+    let(:path) { ['/fiddle/foo','/deedle/dee'] }
 
     context 'that is absolute' do
       let(:executable) { '/baz/bingo/doodle' }
@@ -212,14 +223,14 @@ describe Cliver do
       end
       context '::detect' do
         let(:method) { :detect }
-        it { should eq '/baz/bingo/doodle'}
+        it { should be_filesystem_equivalent_of '/baz/bingo/doodle' }
       end
       context '::detect!' do
         let(:method) { :detect! }
         it 'should not raise' do
           expect { action }.to_not raise_exception
         end
-        it { should eq '/baz/bingo/doodle' }
+        it { should be_filesystem_equivalent_of '/baz/bingo/doodle' }
       end
     end
   end
@@ -262,7 +273,7 @@ describe Cliver do
         end
         context '::detect' do
           let(:method) { :detect }
-          it { should eq '/baz/bingo/primary' }
+          it { should be_filesystem_equivalent_of '/baz/bingo/primary' }
         end
       end
       context 'and primary insufficient' do
@@ -275,7 +286,7 @@ describe Cliver do
         context 'the secondary' do
           context '::detect' do
             let(:method) { :detect }
-            it { should eq '/foo/bar/fallback' }
+            it { should be_filesystem_equivalent_of '/foo/bar/fallback' }
           end
         end
       end
@@ -289,7 +300,7 @@ describe Cliver do
         end
         context '::detect' do
           let(:method) { :detect }
-          it { should eq '/foo/bar/fallback' }
+          it { should be_filesystem_equivalent_of '/foo/bar/fallback' }
         end
       end
     end

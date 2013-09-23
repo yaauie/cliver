@@ -12,8 +12,15 @@ class File
   #   File.absolute_path?('C:/foo/bar') #=> true
   # @param path [String] - a pathname
   # @return [Boolean]
-  def self.absolute_path?(path)
-    false | path[ABSOLUTE_PATH_PATTERN]
+  def self.absolute_path?(path, platform = :default)
+    pattern = case platform
+              when :default then ABSOLUTE_PATH_PATTERN
+              when :windows then WINDOWS_ABSOLUTE_PATH_PATTERN
+              when :posix   then POSIX_ABSOLUTE_PATH_PATTERN
+              else raise ArgumentError, "Unsupported platform '#{platform.inspect}'"
+              end
+
+    false | path[pattern]
   end
 
   unless defined?(POSIX_ABSOLUTE_PATH_PATTERN)

@@ -198,7 +198,7 @@ module Cliver
     def find_executables
       return enum_for(:find_executables) unless block_given?
 
-      exts = ENV.has_key?('PATHEXT') ? ENV.fetch('PATHEXT').split(';') : ['']
+      exts = (ENV.has_key?('PATHEXT') ? ENV.fetch('PATHEXT').split(';') : []) << ''
       paths = @path.sub('*', ENV['PATH']).split(File::PATH_SEPARATOR)
       raise ArgumentError.new('No PATH to search!') if paths.empty?
       cmds = strict? ? @executables.first(1) : @executables
