@@ -21,7 +21,7 @@ describe Cliver do
 
   let(:options) do
     {
-      :path =>       path,
+      :path =>       path.join(File::PATH_SEPARATOR),
       :executable => executable,
     }
   end
@@ -32,7 +32,7 @@ describe Cliver do
     args << options
   end
 
-  let(:path) { '/foo/bar:/baz/bingo' }
+  let(:path) { ['/foo/bar','/baz/bingo'] }
   let(:executable) { 'doodle' }
   let(:requirement) { '~>1.1'}
 
@@ -137,7 +137,7 @@ describe Cliver do
     let(:version_map) do
       {'/baz/bingo/doodle' => '1.2.1'}
     end
-    let(:path) { '/fiddle/foo:/deedle/dee'}
+    let(:path) { ['/fiddle/foo','/deedle/dee'] }
 
     context 'that is absolute' do
       let(:executable) { '/baz/bingo/doodle' }
