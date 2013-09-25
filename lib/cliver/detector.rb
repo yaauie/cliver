@@ -40,15 +40,15 @@ module Cliver
     # @return [String] - should be contain {Gem::Version}-parsable
     #                    version number.
     def detect_version(executable_path)
-      output = shell_out_and_capture version_command(executable_path).shelljoin
-      if $?.exitstatus == 127
+      capture = ShellCapture.new(version_command(executable_path))
+      unless capture.command_found
         raise Cliver::Dependency::NotFound.new(
             "Could not find an executable at given path '#{executable_path}'." +
             "If this path was not specified explicitly, it is probably a " +
             "bug in [Cliver](https://github.com/yaauie/cliver/issues)."
           )
       end
-      output[version_pattern]
+      capture.stdout[version_pattern] || capture.stderr[version_pattern]
     end
 
     # This is the interface that any detector must have.
@@ -79,14 +79,6 @@ module Cliver
     # @return [Array<String>]
     def version_command(executable_path)
       [executable_path, *Array(command_arg)]
-    end
-
-    private
-
-    # @api private
-    # A boundary that is useful for testing.
-    def shell_out_and_capture(command)
-      `#{command} 2>&1`
     end
   end
 end

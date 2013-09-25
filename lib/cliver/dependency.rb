@@ -1,5 +1,6 @@
 # encoding: utf-8
 require 'rubygems/requirement'
+require 'set'
 
 module Cliver
   # This is how a dependency is specified.
@@ -197,18 +198,18 @@ module Cliver
     def find_executables
       return enum_for(:find_executables) unless block_given?
 
-      exts = ENV.has_key?('PATHEXT') ? ENV.fetch('PATHEXT').split(';') : ['']
+      exts = (ENV.has_key?('PATHEXT') ? ENV.fetch('PATHEXT').split(';') : []) << ''
       paths = @path.sub('*', ENV['PATH']).split(File::PATH_SEPARATOR)
+      raise ArgumentError.new('No PATH to search!') if paths.empty?
       cmds = strict? ? @executables.first(1) : @executables
 
-      detected_exes = []
+      lookup_cache = Set.new
       cmds.product(paths, exts).map do |cmd, path, ext|
         exe = File.absolute_path?(cmd) ? cmd : File.expand_path("#{cmd}#{ext}", path)
 
+        next unless lookup_cache.add?(exe) # don't yield the same exe path 2x
         next unless File.executable?(exe)
-        next if detected_exes.include?(exe) # don't yield the same exe path 2x
 
-        detected_exes << exe
         yield exe
       end
     end

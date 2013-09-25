@@ -4,6 +4,7 @@ require File.expand_path('../core_ext/file', __FILE__)
 
 require 'cliver/version'
 require 'cliver/dependency'
+require 'cliver/shell_capture'
 require 'cliver/detector'
 require 'cliver/filter'
 
@@ -49,16 +50,19 @@ module Cliver
   end
 
   # Verify an absolute-path to an executable.
-  # @param (see Cliver::Dependency#initialize)
-  #   EXCEPT: executable must be a single, absolute path.
-  # @option options [Boolean] :strict (true) @see Cliver::Dependency::initialize
-  # @raise (see Cliver::Dependency#detect!)
-  # @return (see Cliver::Dependency#detect!)
+  # @overload verify!(executable, *requirements, options = {})
+  #   @param executable [String] absolute path to an executable
+  #   @param requirements (see Cliver::Dependency#initialize)
+  #   @option options (see Cliver::Dependency::initialize)
+  #   @raise (see Cliver::Dependency#detect!)
+  #   @return (see Cliver::Dependency#detect!)
   def self.verify!(executable, *args, &block)
     unless File.absolute_path?(executable)
       raise ArgumentError, "executable path must be absolute, " +
                            "got '#{executable.inspect}'."
     end
+    options = args.last.kind_of?(Hash) ? args.pop : {}
+    args << options.merge(:path => '.') # ensure path non-empty.
     Dependency::new(executable, *args, &block).detect!
   end
 
