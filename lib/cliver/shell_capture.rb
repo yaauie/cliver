@@ -4,7 +4,14 @@ module Cliver
   class ShellCapture
     attr_reader :stdout, :stderr, :command_found
 
+    # @overlaod initialize(command)
+    #   @param command [String] the command to run
+    # @overload initialize(command)
+    #   @param command [Array<String>] the command to run; elements in
+    #     the supplied array will be shelljoined.
+    # @return [void]
     def initialize(command)
+      command = command.shelljoin if command.kind_of?(Array)
       @stdout = @stderr = ''
       begin
         Open3.popen3(command) do |i, o, e|

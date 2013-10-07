@@ -10,13 +10,22 @@ describe Cliver::ShellCapture do
     let(:intended_stderr) { StringIO.new('foo baar 1').tap(&:rewind) }
     let(:intended_stdin)  { StringIO.new('').tap(&:rewind) }
 
-    before(:each) do
-      Open3.should_receive(:popen3).and_yield(intended_stdin, intended_stdout, intended_stderr)
-    end
+    ['test command', %w(test command)].each do |input|
+      context "with #{input.class.name} input" do
+        let(:test_command) { input }
 
-    its(:stdout) { should eq '1.1.1' }
-    its(:stderr) { should eq 'foo baar 1' }
-    its(:command_found) { should be_true }
+        before(:each) do
+          Open3.should_receive(:popen3) do |*args|
+            args.size.should eq 1
+            args.first.should == 'test command'
+          end.and_yield(intended_stdin, intended_stdout, intended_stderr)
+        end
+
+        its(:stdout) { should eq '1.1.1' }
+        its(:stderr) { should eq 'foo baar 1' }
+        its(:command_found) { should be_true }
+      end
+    end
   end
 
   context 'looking for a command that does not exist' do
