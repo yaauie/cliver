@@ -188,7 +188,7 @@ module Cliver
 
       raw_version = @detector.to_proc.call(executable_path)
       raw_version || raise(ArgumentError,
-                           "The detector #{@detector} failed to detect the" +
+                           "The detector #{@detector} failed to detect the " +
                            "version of the executable at '#{executable_path}'")
     end
 
