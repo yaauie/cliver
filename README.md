@@ -12,6 +12,21 @@ gemspec.
 
 ## Usage
 
+### Get Out of My Way, CLIVER!
+
+Sometimes even Cliver can't perfectly deduce the version of an executable given
+its `--version` output. If you're getting an exception with a mismatch, supply
+the `CLIVER_NO_VERIFY` environment variable, and it will assume that the first
+executable on your path to match the *name* also matches the *version*
+constraint. Please also create an issue here so I can help you resolve the root
+issue.
+
+``` sh
+$ command-that-uses-cliver # raises exception :(
+$ export CLIVER_NO_VERIFY=1
+$ command-that-uses-cliver # no cliver exception :)
+```
+
 ### Detect and Detect!
 
 The detect methods search your entire path until they find a matching executable
