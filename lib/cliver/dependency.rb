@@ -107,6 +107,7 @@ module Cliver
       installed = {}
       installed_versions.each do |path, version|
         installed[path] = version
+        return path if ENV['CLIVER_NO_VERIFY']
         return path if requirement_satisfied_by?(version)
         strict?
       end
