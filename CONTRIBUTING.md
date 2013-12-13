@@ -20,6 +20,10 @@ in general please keep feature pull-requests based against the current
 Please include clear steps-to-reproduce. Spec files are especially welcome;
 a failing spec can be contributed as a pull-request against `develop`.
 
+If you're submitting a bug because cliver is either reporting the wrong version
+for an executable or is unable to deduce the version, please supply both stdout
+and stderr (separately) from its `--version` (or similar) command.
+
 ## Ruby Appraiser
 
 `Cliver` uses the [ruby-appraiser][] gem via [pre-commit][] hook, which can be
