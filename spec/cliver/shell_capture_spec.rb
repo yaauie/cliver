@@ -16,8 +16,7 @@ describe Cliver::ShellCapture do
 
         before(:each) do
           Open3.should_receive(:popen3) do |*args|
-            args.size.should eq 1
-            args.first.should == 'test command'
+            args.should eq %w(test command)
           end.and_yield(intended_stdin, intended_stdout, intended_stderr)
         end
 
@@ -30,9 +29,9 @@ describe Cliver::ShellCapture do
 
   context 'looking for a command that does not exist' do
     before(:each) do
-      Open3.should_receive(:popen3) do |command|
-        command.should eq test_command
-        raise Errno::ENOENT.new("No such file or directory - #{test_command}")
+      Open3.should_receive(:popen3) do |*command|
+        command.should eq test_command.shellsplit
+        raise Errno::ENOENT.new("No such file or directory - #{command.first}")
       end
     end
     its(:stdout) { should eq '' }
