@@ -209,7 +209,7 @@ module Cliver
         exe = File.absolute_path?(cmd) ? cmd : File.expand_path("#{cmd}#{ext}", path)
 
         next unless lookup_cache.add?(exe) # don't yield the same exe path 2x
-        next unless File.executable?(exe)
+        next unless File.executable?(exe) && !File.directory?(exe)
 
         yield exe
       end
