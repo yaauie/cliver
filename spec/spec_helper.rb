@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+require 'rspec/its'
+
 # 1.8.x doesn't support public_send and we use it in spec,
 # so we emulate it in this monkeypatch.
 class Object
