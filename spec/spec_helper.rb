@@ -2,6 +2,18 @@
 
 require 'rspec/its'
 
+# Snooze button on rspec `should` syntax deprecations until 2016-07-01
+unless Time.now > Time.at(1435708800)
+  RSpec.configure do |config|
+    config.expect_with :rspec do |c|
+      c.syntax = [:should, :expect]
+    end
+    config.mock_with :rspec do |c|
+      c.syntax = [:should, :expect]
+    end
+  end
+end
+
 # 1.8.x doesn't support public_send and we use it in spec,
 # so we emulate it in this monkeypatch.
 class Object
