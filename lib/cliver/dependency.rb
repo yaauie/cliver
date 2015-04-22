@@ -210,6 +210,7 @@ module Cliver
 
         next unless lookup_cache.add?(exe) # don't yield the same exe path 2x
         next unless File.executable?(exe)
+        next if File.directory?(exe)
 
         yield exe
       end
