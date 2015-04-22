@@ -62,7 +62,7 @@ describe Cliver do
 
     context '::dependency_unmet?' do
       let(:method) { :dependency_unmet? }
-      it { should be_false }
+      it { should be false }
     end
     context '::detect' do
       let(:method) { :detect }
@@ -132,7 +132,7 @@ describe Cliver do
       context 'and the executable at that path is sufficent' do
         let(:executable) { '/baz/fiddle/doodle' }
         it 'should not raise' do
-          expect { action }.to_not raise_exception Cliver::Dependency::NotFound
+          expect { action }.to_not raise_exception
         end
       end
       context 'and the executable at that path is not sufficent' do
@@ -191,7 +191,7 @@ describe Cliver do
     end
     context '::dependency_unmet?' do
       let(:method) { :dependency_unmet? }
-      it { should be_true }
+      it { should be_truthy }
     end
     context '::detect' do
       let(:method) { :detect }
@@ -219,7 +219,7 @@ describe Cliver do
       end
       context '::dependency_unmet?' do
         let(:method) { :dependency_unmet? }
-        it { should be_true }
+        it { should be_truthy }
       end
       context '::detect' do
         let(:method) { :detect }
@@ -246,7 +246,7 @@ describe Cliver do
     end
     context '::dependency_unmet?' do
       let(:method) { :dependency_unmet? }
-      it { should be_true }
+      it { should be_truthy }
     end
     context '::detect' do
       let(:method) { :detect }

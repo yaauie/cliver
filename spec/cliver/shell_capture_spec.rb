@@ -22,7 +22,7 @@ describe Cliver::ShellCapture do
 
         its(:stdout) { should eq '1.1.1' }
         its(:stderr) { should eq 'foo baar 1' }
-        its(:command_found) { should be_true }
+        its(:command_found) { should be true }
       end
     end
   end
@@ -36,6 +36,6 @@ describe Cliver::ShellCapture do
     end
     its(:stdout) { should eq '' }
     its(:stderr) { should eq '' }
-    its(:command_found) { should be_false }
+    its(:command_found) { should be false }
   end
 end

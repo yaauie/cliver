@@ -15,7 +15,7 @@ describe 'File::absolute_path?' do
         context "(#{path})" do
           context 'the return value' do
             subject { File::absolute_path?(path) }
-            it { should be_true }
+            it { should be true }
           end
         end
       end
@@ -34,7 +34,7 @@ describe 'File::absolute_path?' do
         context "(#{path})" do
           context 'the return value' do
             subject { File::absolute_path?(path) }
-            it { should be_false }
+            it { should be false }
           end
         end
       end
@@ -57,7 +57,7 @@ describe 'File::absolute_path?' do
         context "(#{path})" do
           context 'the return value' do
             subject { File::absolute_path?(path) }
-            it { should be_true }
+            it { should be true }
           end
         end
       end
@@ -73,7 +73,7 @@ describe 'File::absolute_path?' do
         context "(#{path})" do
           context 'the return value' do
             subject { File::absolute_path?(path) }
-            it { should be_false }
+            it { should be false }
           end
         end
       end
