@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['ryan@yaauie.com']
   spec.description   = 'Assertions for command-line dependencies'
   spec.summary       = 'Cross-platform version constraints for cli tools'
-  spec.homepage      = 'https://www.github.com/yaauie/cliver'
+  spec.homepage      = 'https://github.com/yaauie/cliver'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($RS)
