@@ -43,7 +43,7 @@ module Cliver
       capture = ShellCapture.new(version_command(executable_path))
       unless capture.command_found
         raise Cliver::Dependency::NotFound.new(
-            "Could not find an executable at given path '#{executable_path}'." +
+            "Could not find an executable at given path '#{executable_path}'. " +
             "If this path was not specified explicitly, it is probably a " +
             "bug in [Cliver](https://github.com/yaauie/cliver/issues)."
           )
