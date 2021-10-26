@@ -56,7 +56,7 @@ module Cliver
       @strict = options.fetch(:strict, false)
 
       @executables = Array(executables).dup.freeze
-      @requirement = args unless args.empty?
+      @requirement = Array(args)
 
       check_compatibility!
     end
@@ -131,7 +131,7 @@ module Cliver
     # @param raw_version [String]
     # @return [Boolean]
     def requirement_satisfied_by?(raw_version)
-      return true unless @requirement
+      return true if @requirement.empty?
       parsable_version = @filter.apply(raw_version)[PARSABLE_GEM_VERSION]
       parsable_version || raise(ArgumentError) # TODO: make descriptive
       filtered_requirement.satisfied_by? Gem::Version.new(parsable_version)
@@ -185,7 +185,7 @@ module Cliver
     # @raise [ArgumentError] if version cannot be detected.
     def detect_version(executable_path)
       # No need to shell out if we are only checking its presence.
-      return '99.version_detection_not_required' unless @requirement
+      return '99.version_detection_not_required' if @requirement.empty?
 
       raw_version = @detector.to_proc.call(executable_path)
       raw_version || raise(ArgumentError,
